@@ -36,12 +36,12 @@
 - (BOOL)close:(NSError **)error;
 
 - (long)sendBytes:(void *)buf count:(long)count error:(NSError **)error;
-- (long)recvBytes:(void *)buf limit:(long)limit error:(NSError **)error;
+- (long)receiveBytes:(void *)buf limit:(long)limit error:(NSError **)error;
 
-- (BOOL)sendFile:(NSString *)path error:(NSError **)error;
-- (BOOL)recvFile:(NSString *)path length:(long)length error:(NSError **)error;
-- (BOOL)recvFile:(NSString *)path length:(long)length md5:(NSData **)hash error:(NSError **)error;
-- (BOOL)recvFile:(NSString *)path length:(long)length sha1:(NSData **)hash error:(NSError **)error;
+- (long)sendFile:(NSString *)path error:(NSError **)error;
+- (long)receiveFile:(NSString *)path length:(long)length error:(NSError **)error;
+- (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash error:(NSError **)error;
+- (long)receiveFile:(NSString *)path length:(long)length sha1:(NSData **)hash error:(NSError **)error;
 
 #pragma mark Settings
 
