@@ -28,14 +28,15 @@
 @protected
 	int sockfd;
 	NSString *host;
-	int port;
+	NSString *port;
 	void *buffer;
-	void *size;
+	size_t size;
 	int timeout;
 	int segmentSize;
+	NSError *lastError;
 }
 
-- (id)initWithHost:(NSString *)host andPort:(int)port;
+- (id)initWithHost:(NSString *)host andPort:(NSString *)port;
 - (void)buffer:(void **)buf size:(int *)size;
 
 #pragma mark Actions
@@ -49,7 +50,6 @@
 - (long)sendFile:(NSString *)path;
 - (long)receiveFile:(NSString *)path length:(long)length;
 - (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash;
-- (long)receiveFile:(NSString *)path length:(long)length sha1:(NSData **)hash;
 
 #pragma mark Settings
 
@@ -57,7 +57,7 @@
 - (BOOL)setTimeout:(int)seconds;
 
 - (int)segmentSize;
-- (BOOL)setSegmentSize:(int)size;
+- (BOOL)setSegmentSize:(int)bytes;
 
 #pragma mark Errors
 
