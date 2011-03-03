@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 
 
+#define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithCString:(str)] forKey:NSLocalizedDescriptionKey]]
+
 @interface FastSocket : NSObject {
 @protected
 	int sockfd;
@@ -37,6 +39,7 @@
 }
 
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
+- (id)initWithFileDescriptor:(int)fd;
 - (void)buffer:(void **)buf size:(int *)size;
 
 #pragma mark Actions

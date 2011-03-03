@@ -27,24 +27,29 @@
 
 
 @interface FastServerSocket : NSObject {
-
+@protected
+	int sockfd;
+	NSString *port;
+	int timeout;
+	NSError *lastError;
 }
 
-- (id)initWithPort:(int)port error:(NSError **)error;
+- (id)initWithPort:(NSString *)port;
 
 #pragma mark Actions
 
-- (BOOL)listen:(NSError **)error;
-- (BOOL)close:(NSError **)error;
+- (BOOL)listen;
+- (BOOL)close;
 
-- (FastSocket *)accept:(NSError **)error;
+- (FastSocket *)accept;
 
 #pragma mark Settings
 
-- (int)timeout:(NSError **)error;
-- (BOOL)setTimeout:(int)seconds error:(NSError **)error;
+- (int)timeout;
+- (BOOL)setTimeout:(int)seconds;
 
-- (int)segmentSize:(NSError **)error;
-- (BOOL)setSegmentSize:(int)size error:(NSError **)error;
+#pragma mark Errors
+
+- (NSError *)lastError;
 
 @end

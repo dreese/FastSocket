@@ -21,12 +21,165 @@
 //  THE SOFTWARE.
 //
 
+//
+//  See the following for source information for this code:
+//  http://beej.us/guide/bgnet/
+//  http://www.phildev.net/mss/blackhole_description.shtml
+//  http://www.mikeash.com/pyblog/friday-qa-2011-02-18-compound-literals.html
+//  
+//  Disk caching is not needed unless the file will be accessed again soon (avoids
+//  a buffer copy). Increasing the size of the TCP receive window is better for
+//  fast networks. Using page-aligned memory allows the kernel to skip a buffer
+//  copy. Using a multiple of the max segment size avoids partially filled network
+//  buffers. Ethernet and IPv4 headers are each 20 bytes. OS X uses the optional
+//  12 byte TCP timestamp. Disabling TCP wait (Nagle's algorithm) is better for
+//  sending files since all packets are large and the waiting slows things down.
+//
+
+
 #import "FastServerSocket.h"
+#import "FastSocket.h"
+#include <unistd.h>
+#include <netdb.h>
 
 
 @implementation FastServerSocket
 
-- (void)initWithHost:(NSString *)host andPort:(int)port {
+- (id)initWithPort:(NSString *)localPort {
+	if (self = [super init]) {
+		port = [localPort copy];
+	}
+	return self;
+}
+
+- (void)dealloc {
+	[self close];
+	
+	[port release];
+	[lastError release];
+	
+	[super dealloc];
+}
+
+#pragma mark Actions
+
+- (BOOL)listen {
+	struct addrinfo hints, *serverinfo, *p;
+	
+	bzero(&hints, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;
+	
+	int error = getaddrinfo(NULL, [port UTF8String], &hints, &serverinfo);
+	if (error) {
+		[lastError release];
+		lastError = NEW_ERROR(error, gai_strerror(error));
+		return NO;
+	}
+	
+	// Loop through the results and bind to the first we can.
+	@try {
+		for (p = serverinfo; p != NULL; p = p->ai_next) {
+			if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) {
+				[lastError release];
+				lastError = NEW_ERROR(errno, strerror(errno));
+				return NO;
+			}
+			
+			// Reuse local address if it still exists.
+			if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0) {
+				[lastError release];
+				lastError = NEW_ERROR(errno, strerror(errno));
+				return NO;
+			}
+			
+			// Bind the socket.
+			if (bind(sockfd, p->ai_addr, p->ai_addrlen) < 0) {
+				close(sockfd);
+				continue;
+			}
+			
+			// Set timeout if requested.
+			if (timeout && ![self setTimeout:timeout]) {
+				return NO;
+			}
+			
+			// Found a working address, so move on.
+			break;
+		}
+		if (p == NULL) {
+			[lastError release];
+			lastError = NEW_ERROR(1, "Could not contact server");
+			return NO;
+		}
+	}
+	@finally {
+		freeaddrinfo(serverinfo); // All done with this structure.
+	}
+	
+	if (listen(sockfd, 10) == -1) {
+		[lastError release];
+		lastError = NEW_ERROR(errno, strerror(errno));
+		return NO;
+	}
+	return YES;
+}
+
+- (BOOL)close {
+	if (sockfd > 0 && close(sockfd) < 0) {
+		[lastError release];
+		lastError = NEW_ERROR(errno, strerror(errno));
+		return NO;
+	}
+	sockfd = 0;
+	return YES;
+}
+
+- (FastSocket *)accept {
+	struct sockaddr_storage remoteAddr;
+	socklen_t addrSize = sizeof(remoteAddr);
+	int clientfd = accept(sockfd, (struct sockaddr *)&remoteAddr, &addrSize);
+	if (clientfd == -1) {
+		[lastError release];
+		lastError = NEW_ERROR(errno, strerror(errno));
+		return nil;
+	}
+	return [[[FastSocket alloc] initWithFileDescriptor:clientfd] autorelease];
+}
+
+#pragma mark Settings
+
+- (int)timeout {
+	if (sockfd > 0) {
+		struct timeval tv;
+		if (getsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
+			[lastError release];
+			lastError = NEW_ERROR(errno, strerror(errno));
+			return NO;
+		}
+		timeout = tv.tv_sec;
+	}
+	return timeout;
+}
+
+- (BOOL)setTimeout:(int)seconds {
+	if (sockfd > 0) {
+		struct timeval tv = {timeout, 0};
+		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
+			[lastError release];
+			lastError = NEW_ERROR(errno, strerror(errno));
+			return NO;
+		}
+	}
+	timeout = seconds;
+	return YES;
+}
+
+#pragma mark Errors
+
+- (NSError *)lastError {
+	return lastError;
 }
 
 @end

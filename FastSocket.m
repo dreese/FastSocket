@@ -36,13 +36,12 @@
 //  sending files since all packets are large and the waiting slows things down.
 //
 
+
 #import "FastSocket.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <unistd.h>
 #include <netdb.h>
 
-
-#define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithCString:(str)] forKey:NSLocalizedDescriptionKey]]
 
 @implementation FastSocket
 
@@ -52,6 +51,40 @@
 		port = [remotePort copy];
 		size = getpagesize() * 1448 / 4;
 		buffer = valloc(size);
+	}
+	return self;
+}
+
+- (id)initWithFileDescriptor:(int)fd {
+	if (self = [super init]) {
+		// Assume the descriptor is an already connected socket.
+		sockfd = fd;
+		size = getpagesize() * 1448 / 4;
+		buffer = valloc(size);
+		
+		// Instead of receiving a SIGPIPE signal, have write() return an error.
+		if (setsockopt(sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
+			[lastError release];
+			lastError = NEW_ERROR(errno, strerror(errno));
+			return NO;
+		}
+		
+		// Disable Nagle's algorithm.
+		if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
+			[lastError release];
+			lastError = NEW_ERROR(errno, strerror(errno));
+			return NO;
+		}
+		
+		// Increase receive buffer size.
+		if (setsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size)) < 0) {
+			// Ignore this because some systems have small hard limits.
+		}
+		
+		// Set timeout or segment size if requested.
+		if (timeout && ![self setTimeout:timeout]) {
+			return NO;
+		}
 	}
 	return self;
 }
@@ -91,7 +124,7 @@
 		return NO;
 	}
 	
-	// Loop through possible addresses and connect to the first viable one.
+	// Loop through the results and connect to the first we can.
 	@try {
 		for (p = serverinfo; p != NULL; p = p->ai_next) {
 			if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) {
@@ -126,7 +159,7 @@
 				continue;
 			}
 			
-			// If specific values have been requested, set them now.
+			// Set timeout or segment size if requested.
 			if (timeout && ![self setTimeout:timeout]) {
 				return NO;
 			}
@@ -134,7 +167,7 @@
 				return NO;
 			}
 			
-			// No need to try another address.
+			// Found a working address, so move on.
 			break;
 		}
 		if (p == NULL) {
