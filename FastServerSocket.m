@@ -138,8 +138,7 @@
 
 - (FastSocket *)accept {
 	struct sockaddr_storage remoteAddr;
-	socklen_t addrSize = sizeof(remoteAddr);
-	int clientfd = accept(sockfd, (struct sockaddr *)&remoteAddr, &addrSize);
+	int clientfd = accept(sockfd, (struct sockaddr *)&remoteAddr, &(socklen_t){sizeof(remoteAddr)});
 	if (clientfd == -1) {
 		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
