@@ -12,6 +12,12 @@
 		373FB2E11306427C00494B53 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
 		373FB3001306496E00494B53 /* FastServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 373FB2FE1306496E00494B53 /* FastServerSocket.h */; };
 		373FB3011306496E00494B53 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
+		37E00E2B13209E7C00C7B6F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */; };
+		37E00E2F13209E8800C7B6F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */; };
+		37E00E4413209EA800C7B6F5 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
+		37E00E4513209EA800C7B6F5 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
+		37E00E4613209EA900C7B6F5 /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E00E1113209C2600C7B6F5 /* FastSocketTest.m */; };
+		37E00E4B13209EDB00C7B6F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FB2421306420600494B53 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,15 +27,28 @@
 		373FB2DF1306427C00494B53 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
 		373FB2FE1306496E00494B53 /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = "<group>"; };
 		373FB2FF1306496E00494B53 /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = "<group>"; };
+		37E00E1113209C2600C7B6F5 /* FastSocketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocketTest.m; sourceTree = "<group>"; };
+		37E00E2413209E2B00C7B6F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = System/Library/Frameworks/SenTestingKit.framework; sourceTree = SDKROOT; };
 		D2AAC046055464E500DB518D /* libFastSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFastSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		37E00E2113209E2B00C7B6F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37E00E4B13209EDB00C7B6F5 /* Foundation.framework in Frameworks */,
+				37E00E2F13209E8800C7B6F5 /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D289987405E68DCB004EDB86 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				373FB2431306420600494B53 /* Foundation.framework in Frameworks */,
+				37E00E2B13209E7C00C7B6F5 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +73,7 @@
 				373FB2DF1306427C00494B53 /* FastSocket.m */,
 				373FB2FE1306496E00494B53 /* FastServerSocket.h */,
 				373FB2FF1306496E00494B53 /* FastServerSocket.m */,
+				37E00E1113209C2600C7B6F5 /* FastSocketTest.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -62,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AAC046055464E500DB518D /* libFastSocket.a */,
+				37E00E2413209E2B00C7B6F5 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				373FB2421306420600494B53 /* Foundation.framework */,
+				37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,6 +119,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		37E00E2313209E2B00C7B6F5 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37E00E2813209E2B00C7B6F5 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				37E00E2013209E2B00C7B6F5 /* Sources */,
+				37E00E2113209E2B00C7B6F5 /* Frameworks */,
+				37E00E2213209E2B00C7B6F5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 37E00E2413209E2B00C7B6F5 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D2AAC045055464E500DB518D /* FastSocket */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "FastSocket" */;
@@ -134,11 +173,38 @@
 			projectRoot = "";
 			targets = (
 				D2AAC045055464E500DB518D /* FastSocket */,
+				37E00E2313209E2B00C7B6F5 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37E00E2213209E2B00C7B6F5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		37E00E2013209E2B00C7B6F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37E00E4413209EA800C7B6F5 /* FastServerSocket.m in Sources */,
+				37E00E4513209EA800C7B6F5 /* FastSocket.m in Sources */,
+				37E00E4613209EA900C7B6F5 /* FastSocketTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC044055464E500DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +272,40 @@
 			};
 			name = Release;
 		};
+		37E00E2613209E2B00C7B6F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		37E00E2713209E2B00C7B6F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -223,6 +323,15 @@
 			buildConfigurations = (
 				1DEB91F008733DB70010E9CD /* Debug */,
 				1DEB91F108733DB70010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37E00E2813209E2B00C7B6F5 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37E00E2613209E2B00C7B6F5 /* Debug */,
+				37E00E2713209E2B00C7B6F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
