@@ -39,8 +39,9 @@
 
 #import "FastSocket.h"
 #import <CommonCrypto/CommonDigest.h>
-#include <unistd.h>
 #include <netdb.h>
+#include <netinet/tcp.h>
+#include <unistd.h>
 
 
 @implementation FastSocket
