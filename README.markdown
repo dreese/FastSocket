@@ -24,7 +24,8 @@ Examples
 
 Please check out the unit tests for examples of how to use these classes.
 
-* * *
+License
+---------------
 
 Copyright &copy; 2011 [Daniel Reese](http://www.danandcheryl.com/)
 
@@ -45,3 +46,4 @@ Copyright &copy; 2011 [Daniel Reese](http://www.danandcheryl.com/)
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
+
