@@ -1,4 +1,4 @@
-//
+///
 //  FastSocket.h
 //  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
 //
@@ -24,7 +24,7 @@
 #import <Foundation/Foundation.h>
 
 
-#define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithCString:(str)] forKey:NSLocalizedDescriptionKey]]
+#define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%s", (str)] forKey:NSLocalizedDescriptionKey]]
 
 @interface FastSocket : NSObject {
 @protected
