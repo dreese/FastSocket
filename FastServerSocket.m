@@ -41,15 +41,45 @@
 #import "FastSocket.h"
 #include <unistd.h>
 #include <netdb.h>
-
+#include <sys/socket.h>
 
 @implementation FastServerSocket
 
 - (id)initWithPort:(NSString *)localPort {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		port = [localPort copy];
 	}
 	return self;
+}
+
+- (id)initWithFileDescriptor:(int)fd {
+	if ((self = [super init])) {
+        struct sockaddr_storage currentSocket; 
+        
+        int error = getsockname(fd, (struct sockaddr *)&currentSocket, &(socklen_t){sizeof(currentSocket)});
+        if(error){
+            [lastError release];
+            lastError = NEW_ERROR(error, gai_strerror(error));
+            return nil;
+        }
+        
+        sockfd = fd;
+        
+        if(currentSocket.ss_family == AF_INET6){
+            struct sockaddr_in6 *currentSocketIn6 = (struct sockaddr_in6 *)&currentSocket;
+            port = [NSString stringWithFormat:@"%i", currentSocketIn6->sin6_port];
+        }
+        
+        else if(currentSocket.ss_family == AF_INET){
+            struct sockaddr_in *currentSocketIn = (struct sockaddr_in *)&currentSocket;
+            port = [NSString stringWithFormat:@"%i", currentSocketIn->sin_port];
+        }
+        
+        else{
+            return nil;
+        }
+    }
+    return self;
 }
 
 - (void)dealloc {
