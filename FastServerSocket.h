@@ -35,6 +35,7 @@
 }
 
 - (id)initWithPort:(NSString *)port;
+- (id)initWithFileDescriptor:(int)fd;
 
 #pragma mark Actions
 
