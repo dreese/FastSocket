@@ -45,6 +45,10 @@
 
 @implementation FastServerSocket
 
+@synthesize sockfd;
+@synthesize port;
+@synthesize lastError;
+
 - (id)initWithPort:(NSString *)localPort {
 	if ((self = [super init])) {
 		port = [localPort copy];
@@ -203,12 +207,6 @@
 	}
 	timeout = seconds;
 	return YES;
-}
-
-#pragma mark Errors
-
-- (NSError *)lastError {
-	return lastError;
 }
 
 @end
