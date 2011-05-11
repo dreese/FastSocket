@@ -34,6 +34,10 @@
 	NSError *lastError;
 }
 
+@property (readonly) int sockfd;
+@property (readonly) NSString *port;
+@property (readonly) NSError *lastError;
+
 - (id)initWithPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
 
@@ -48,9 +52,5 @@
 
 - (int)timeout;
 - (BOOL)setTimeout:(int)seconds;
-
-#pragma mark Errors
-
-- (NSError *)lastError;
 
 @end
