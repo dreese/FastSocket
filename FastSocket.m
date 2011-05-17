@@ -46,8 +46,13 @@
 
 @implementation FastSocket
 
+@synthesize sockfd;
+@synthesize lastError;
+@synthesize host;
+@synthesize port;
+
 - (id)initWithHost:(NSString *)remoteHost andPort:(NSString *)remotePort {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		host = [remoteHost copy];
 		port = [remotePort copy];
 		size = getpagesize() * 1448 / 4;
@@ -57,7 +62,7 @@
 }
 
 - (id)initWithFileDescriptor:(int)fd {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		// Assume the descriptor is an already connected socket.
 		sockfd = fd;
 		size = getpagesize() * 1448 / 4;
@@ -352,12 +357,6 @@
 	}
 	segmentSize = bytes;
 	return YES;
-}
-
-#pragma mark Errors
-
-- (NSError *)lastError {
-	return lastError;
 }
 
 @end
