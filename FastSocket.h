@@ -1,4 +1,4 @@
-///
+//
 //  FastSocket.h
 //  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
 //
@@ -37,6 +37,12 @@
 	int segmentSize;
 	NSError *lastError;
 }
+
+@property (readonly) int sockfd;
+@property (readonly) NSString *host;
+@property (readonly) NSString *port;
+@property (readonly) NSError *lastError;
+
 
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
