@@ -26,7 +26,12 @@
 //  http://beej.us/guide/bgnet/
 //  http://www.phildev.net/mss/blackhole_description.shtml
 //  http://www.mikeash.com/pyblog/friday-qa-2011-02-18-compound-literals.html
-//  
+//
+//  Set optimal packet size: 1500 bytes (Ethernet) - 40 bytes (TCP) - 12 bytes (Optional TCP timestamp) = 1448 bytes.
+//  http://www.faqs.org/docs/gazette/tcp.html
+//  http://smallvoid.com/article/windows-tcpip-settings.html
+//  http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man4/tcp.4.html
+//
 //  Disk caching is not needed unless the file will be accessed again soon (avoids
 //  a buffer copy). Increasing the size of the TCP receive window is better for
 //  fast networks. Using page-aligned memory allows the kernel to skip a buffer
