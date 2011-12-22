@@ -144,7 +144,7 @@
 		}
 		if (p == NULL) {
 			[lastError release];
-			lastError = NEW_ERROR(1, "Could not contact server");
+			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
 	}
