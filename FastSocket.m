@@ -58,6 +58,7 @@
 
 - (id)initWithHost:(NSString *)remoteHost andPort:(NSString *)remotePort {
 	if ((self = [super init])) {
+		sockfd = 0;
 		host = [remoteHost copy];
 		port = [remotePort copy];
 		size = getpagesize() * 1448 / 4;
