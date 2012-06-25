@@ -21,26 +21,6 @@
 //  THE SOFTWARE.
 //
 
-//
-//  See the following for source information for this code:
-//  http://beej.us/guide/bgnet/
-//  http://www.phildev.net/mss/blackhole_description.shtml
-//  http://www.mikeash.com/pyblog/friday-qa-2011-02-18-compound-literals.html
-//
-//  Set optimal packet size: 1500 bytes (Ethernet) - 40 bytes (TCP) - 12 bytes (Optional TCP timestamp) = 1448 bytes.
-//  http://www.faqs.org/docs/gazette/tcp.html
-//  http://smallvoid.com/article/windows-tcpip-settings.html
-//  http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man4/tcp.4.html
-//
-//  Disk caching is not needed unless the file will be accessed again soon (avoids
-//  a buffer copy). Increasing the size of the TCP receive window is better for
-//  fast networks. Using page-aligned memory allows the kernel to skip a buffer
-//  copy. Using a multiple of the max segment size avoids partially filled network
-//  buffers. Ethernet and IPv4 headers are each 20 bytes. OS X uses the optional
-//  12 byte TCP timestamp. Disabling TCP wait (Nagle's algorithm) is better for
-//  sending files since all packets are large and the waiting slows things down.
-//
-
 
 #import "FastServerSocket.h"
 #import "FastSocket.h"

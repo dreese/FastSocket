@@ -46,6 +46,7 @@
 #pragma mark Actions
 
 - (BOOL)connect;
+- (BOOL)isConnected;
 - (BOOL)close;
 
 - (long)sendBytes:(void *)buf count:(long)count;

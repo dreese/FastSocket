@@ -26,6 +26,7 @@
 //  http://beej.us/guide/bgnet/
 //  http://www.phildev.net/mss/blackhole_description.shtml
 //  http://www.mikeash.com/pyblog/friday-qa-2011-02-18-compound-literals.html
+//  http://cr.yp.to/docs/connect.html
 //
 //  Set optimal packet size: 1500 bytes (Ethernet) - 40 bytes (TCP) - 12 bytes (Optional TCP timestamp) = 1448 bytes.
 //  http://www.faqs.org/docs/gazette/tcp.html
@@ -176,6 +177,19 @@
 	}
 	@finally {
 		freeaddrinfo(serverinfo);
+	}
+	return YES;
+}
+
+- (BOOL)isConnected {
+	if (sockfd == 0) {
+		return NO;
+	}
+	
+	struct sockaddr remoteAddr;
+	if (getpeername(sockfd, &remoteAddr, &(socklen_t){sizeof(remoteAddr)}) < 0) {
+		lastError = NEW_ERROR(errno, strerror(errno));
+		return NO;
 	}
 	return YES;
 }

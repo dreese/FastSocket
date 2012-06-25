@@ -63,6 +63,26 @@
 	//STAssertNil([client lastError], @"Last error should be nil"); // TODO: Not sure if this should be cleared out or just left alone.
 }
 
+- (void)testIsConnected {
+	// Spawn a thread to listen.
+	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Check connected state before and after connecting, and after closing.
+	STAssertFalse([client isConnected], @"Should not be connected");
+	STAssertTrue([client connect], @"Connection attempt failed");
+	STAssertTrue([client isConnected], @"Client should be connected");
+	STAssertTrue([client close], @"Connection should be closed");
+	STAssertFalse([client isConnected], @"Client should no longer be connected");
+	
+	// Close server socket and verify that the client knows it's no longer connected.
+	STAssertTrue([client connect], @"Connection attempt failed");
+	STAssertTrue([client isConnected], @"Client should be connected");
+	STAssertTrue([server close], @"Connection should be closed");
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	STAssertFalse([client isConnected], @"Client should no longer be connected");
+}
+
 - (void)testTimeoutBefore {
 	// Spawn a thread to listen.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
