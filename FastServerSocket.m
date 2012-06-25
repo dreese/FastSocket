@@ -203,7 +203,7 @@
 
 - (BOOL)setTimeout:(int)seconds {
 	if (sockfd > 0) {
-		struct timeval tv = {timeout, 0};
+		struct timeval tv = {seconds, 0};
 		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
 			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
