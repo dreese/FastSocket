@@ -1,6 +1,6 @@
 //
 //  FastSocketTest.h
-//  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
+//  Copyright (c) 2011-2012 Daniel Reese <dan@danandcheryl.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -42,8 +42,6 @@
 }
 
 - (void)tearDown {
-	[client release];
-	[server release];
 }
 
 #pragma mark Tests
@@ -169,11 +167,11 @@
 #pragma mark Helpers
 
 - (void)simpleListen:(id)obj {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
-	[server listen]; // Incoming connections just queue up.
+		[server listen]; // Incoming connections just queue up.
 	
-	[pool drain];
+	}
 }
 
 @end

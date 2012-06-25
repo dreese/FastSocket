@@ -1,6 +1,6 @@
 //
 //  FastSocket.h
-//  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
+//  Copyright (c) 2011-2012 Daniel Reese <dan@danandcheryl.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,21 +28,16 @@
 
 @interface FastSocket : NSObject {
 @protected
-	int sockfd;
-	NSString *host;
-	NSString *port;
 	void *buffer;
 	size_t size;
 	int timeout;
 	int segmentSize;
-	NSError *lastError;
 }
 
-@property (readonly) int sockfd;
-@property (readonly) NSString *host;
-@property (readonly) NSString *port;
-@property (readonly) NSError *lastError;
-
+@property (nonatomic, readonly) int sockfd;
+@property (nonatomic, readonly) NSString *host;
+@property (nonatomic, readonly) NSString *port;
+@property (nonatomic, readonly) NSError *lastError;
 
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
@@ -67,9 +62,5 @@
 
 - (int)segmentSize;
 - (BOOL)setSegmentSize:(int)bytes;
-
-#pragma mark Errors
-
-- (NSError *)lastError;
 
 @end

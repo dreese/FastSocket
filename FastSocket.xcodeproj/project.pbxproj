@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A97ECD815981EFD0057EB2C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A97EC9C15981D150057EB2C /* SenTestingKit.framework */; };
 		373FB2431306420600494B53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FB2421306420600494B53 /* Foundation.framework */; };
 		373FB2E01306427C00494B53 /* FastSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 373FB2DE1306427C00494B53 /* FastSocket.h */; };
 		373FB2E11306427C00494B53 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
 		373FB3001306496E00494B53 /* FastServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 373FB2FE1306496E00494B53 /* FastServerSocket.h */; };
 		373FB3011306496E00494B53 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
-		37E00E2B13209E7C00C7B6F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */; };
-		37E00E2F13209E8800C7B6F5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */; };
 		37E00E4413209EA800C7B6F5 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
 		37E00E4513209EA800C7B6F5 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
 		37E00E4613209EA900C7B6F5 /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E00E1113209C2600C7B6F5 /* FastSocketTest.m */; };
@@ -21,7 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		373FB23D1306419300494B53 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		1A97EC9B15981CE30057EB2C /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		1A97EC9C15981D150057EB2C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		373FB2421306420600494B53 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		373FB2DE1306427C00494B53 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
 		373FB2DF1306427C00494B53 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
@@ -29,7 +29,6 @@
 		373FB2FF1306496E00494B53 /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = "<group>"; };
 		37E00E1113209C2600C7B6F5 /* FastSocketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocketTest.m; sourceTree = "<group>"; };
 		37E00E2413209E2B00C7B6F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = System/Library/Frameworks/SenTestingKit.framework; sourceTree = SDKROOT; };
 		D2AAC046055464E500DB518D /* libFastSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFastSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -39,7 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37E00E4B13209EDB00C7B6F5 /* Foundation.framework in Frameworks */,
-				37E00E2F13209E8800C7B6F5 /* SenTestingKit.framework in Frameworks */,
+				1A97ECD815981EFD0057EB2C /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				373FB2431306420600494B53 /* Foundation.framework in Frameworks */,
-				37E00E2B13209E7C00C7B6F5 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				373FB2421306420600494B53 /* Foundation.framework */,
-				37E00E2A13209E7C00C7B6F5 /* SenTestingKit.framework */,
+				1A97EC9C15981D150057EB2C /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,7 +97,7 @@
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				373FB23D1306419300494B53 /* README */,
+				1A97EC9B15981CE30057EB2C /* README.markdown */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -222,6 +220,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -235,6 +237,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = FastSocket;
@@ -245,7 +251,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -262,7 +269,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -275,6 +283,8 @@
 		37E00E2613209E2B00C7B6F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -292,6 +302,8 @@
 		37E00E2713209E2B00C7B6F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";

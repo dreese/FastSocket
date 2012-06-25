@@ -1,6 +1,6 @@
 //
 //  FastServerSocket.m
-//  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
+//  Copyright (c) 2011-2012 Daniel Reese <dan@danandcheryl.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,6 @@
         
         int error = getsockname(fd, (struct sockaddr *)&currentSocket, &(socklen_t){sizeof(currentSocket)});
         if(error){
-            [lastError release];
             lastError = NEW_ERROR(error, gai_strerror(error));
             return nil;
         }
@@ -93,11 +92,6 @@
 
 - (void)dealloc {
 	[self close];
-	
-	[port release];
-	[lastError release];
-	
-	[super dealloc];
 }
 
 #pragma mark Actions
@@ -112,7 +106,6 @@
 	
 	int error = getaddrinfo(NULL, [port UTF8String], &hints, &serverinfo);
 	if (error) {
-		[lastError release];
 		lastError = NEW_ERROR(error, gai_strerror(error));
 		return NO;
 	}
@@ -121,14 +114,12 @@
 	@try {
 		for (p = serverinfo; p != NULL; p = p->ai_next) {
 			if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
 			
 			// Reuse local address if it still exists.
 			if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
@@ -148,7 +139,6 @@
 			break;
 		}
 		if (p == NULL) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
@@ -158,7 +148,6 @@
 	}
 	
 	if (listen(sockfd, 10) == -1) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
@@ -167,7 +156,6 @@
 
 - (BOOL)close {
 	if (sockfd > 0 && close(sockfd) < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
@@ -179,11 +167,10 @@
 	struct sockaddr_storage remoteAddr;
 	int clientfd = accept(sockfd, (struct sockaddr *)&remoteAddr, &(socklen_t){sizeof(remoteAddr)});
 	if (clientfd == -1) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return nil;
 	}
-	return [[[FastSocket alloc] initWithFileDescriptor:clientfd] autorelease];
+	return [[FastSocket alloc] initWithFileDescriptor:clientfd];
 }
 
 #pragma mark Settings
@@ -192,7 +179,6 @@
 	if (sockfd > 0) {
 		struct timeval tv;
 		if (getsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
@@ -205,7 +191,6 @@
 	if (sockfd > 0) {
 		struct timeval tv = {seconds, 0};
 		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}

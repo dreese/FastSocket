@@ -1,6 +1,6 @@
 //
 //  FastSocket.m
-//  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
+//  Copyright (c) 2011-2012 Daniel Reese <dan@danandcheryl.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -76,14 +76,12 @@
 		
 		// Instead of receiving a SIGPIPE signal, have write() return an error.
 		if (setsockopt(sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
 		
 		// Disable Nagle's algorithm.
 		if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
@@ -110,13 +108,7 @@
 
 - (void)dealloc {
 	[self close];
-	
-	[host release];
-	[port release];
-	[lastError release];
 	free(buffer);
-	
-	[super dealloc];
 }
 
 #pragma mark Actions
@@ -131,7 +123,6 @@
 	
 	int error = getaddrinfo([host UTF8String], [port UTF8String], &hints, &serverinfo);
 	if (error) {
-		[lastError release];
 		lastError = NEW_ERROR(error, gai_strerror(error));
 		return NO;
 	}
@@ -140,21 +131,18 @@
 	@try {
 		for (p = serverinfo; p != NULL; p = p->ai_next) {
 			if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
 			
 			// Instead of receiving a SIGPIPE signal, have write() return an error.
 			if (setsockopt(sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
 			
 			// Disable Nagle's algorithm.
 			if (setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
@@ -166,7 +154,6 @@
 			
 			// Connect the socket (default connect timeout is 75 seconds).
 			if (connect(sockfd, p->ai_addr, p->ai_addrlen) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				continue;
 			}
@@ -183,7 +170,6 @@
 			break;
 		}
 		if (p == NULL) {
-			[lastError release];
 			lastError = NEW_ERROR(1, "Could not contact server");
 			return NO;
 		}
@@ -196,7 +182,6 @@
 
 - (BOOL)close {
 	if (sockfd > 0 && close(sockfd) < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
@@ -207,7 +192,6 @@
 - (long)sendBytes:(void *)buf count:(long)count {
 	long sent;
 	if ((sent = send(sockfd, buf, count, 0)) < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 	}
 	return sent;
@@ -216,7 +200,6 @@
 - (long)receiveBytes:(void *)buf limit:(long)limit {
 	long received = recv(sockfd, buf, limit, 0);
 	if (received < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 	}
 	return received;
@@ -228,7 +211,6 @@
 	@try {
 		const char *cPath = [path fileSystemRepresentation];
 		if ((fd = open(cPath, O_RDONLY)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return -1;
 		}
@@ -243,12 +225,10 @@
 				break; // Reached end of file.
 			}
 			if (count < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
 			if ([self sendBytes:buffer count:count] < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
@@ -271,7 +251,6 @@
 	@try {
 		const char *cPath = [path fileSystemRepresentation];
 		if ((fd = open(cPath, O_WRONLY | O_CREAT | O_TRUNC, 0664)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return -1;
 		}
@@ -292,12 +271,10 @@
 				break; // Peer closed the connection.
 			}
 			if (received < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
 			if (write(fd, buffer, received) < 0) {
-				[lastError release];
 				lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
@@ -324,7 +301,6 @@
 	if (sockfd > 0) {
 		struct timeval tv;
 		if (getsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
@@ -337,7 +313,6 @@
 	if (sockfd > 0) {
 		struct timeval tv = {seconds, 0};
 		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
-			[lastError release];
 			lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
@@ -348,7 +323,6 @@
 
 - (int)segmentSize {
 	if (sockfd > 0 && getsockopt(sockfd, IPPROTO_TCP, TCP_MAXSEG, &segmentSize, &(socklen_t){sizeof(segmentSize)}) < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
@@ -357,7 +331,6 @@
 
 - (BOOL)setSegmentSize:(int)bytes {
 	if (sockfd > 0 && setsockopt(sockfd, IPPROTO_TCP, TCP_MAXSEG, &bytes, sizeof(bytes)) < 0) {
-		[lastError release];
 		lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}

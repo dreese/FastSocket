@@ -1,6 +1,6 @@
 //
 //  FastServerSocket.h
-//  Copyright (c) 2011 Daniel Reese <dan@danandcheryl.com>
+//  Copyright (c) 2011-2012 Daniel Reese <dan@danandcheryl.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,14 @@
 #import <Foundation/Foundation.h>
 
 @class FastSocket;
-
-
 @interface FastServerSocket : NSObject {
 @protected
-	int sockfd;
-	NSString *port;
 	int timeout;
-	NSError *lastError;
 }
 
-@property (readonly) int sockfd;
-@property (readonly) NSString *port;
-@property (readonly) NSError *lastError;
+@property (nonatomic, readonly) int sockfd;
+@property (nonatomic, readonly) NSString *port;
+@property (nonatomic, readonly) NSError *lastError;
 
 - (id)initWithPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
@@ -45,7 +40,6 @@
 
 - (BOOL)listen;
 - (BOOL)close;
-
 - (FastSocket *)accept;
 
 #pragma mark Settings
