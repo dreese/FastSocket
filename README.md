@@ -29,16 +29,21 @@ Create and connect a client socket.
 
 Send a file.
 
-    [client sendFile:@"/tmp/filetosend.txt"];
+    long sent = [client sendFile:@"/tmp/filetosend.txt"];
 
 Receive a file of a given length.
 
-	[client receiveFile:@"/tmp/newlyreceivedfile.txt" length:1024];
+	long received = [client receiveFile:@"/tmp/newlyreceivedfile.txt" length:1024];
 
-Send and receive raw bytes.
+Send raw bytes.
 
-    [client sendBytes:(void *)buf count:(long)count];
-	[client receiveBytes:(void *)buf limit:(long)limit];
+    char data[] = {42};
+    long sent = [client sendBytes:data count:1];
+
+Receive raw bytes.
+
+    char data[42];
+	long received = [client receiveBytes:data limit:42];
 
 Close the connection.
 

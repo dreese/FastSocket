@@ -42,6 +42,8 @@
 }
 
 - (void)tearDown {
+	[client close];
+	[server close];
 }
 
 #pragma mark Tests
@@ -184,25 +186,30 @@
 	STAssertTrue([client close], @"Could not close connection");
 }
 
-//- (void)testSendingAndReceivingBytes {
-//	// Spawn a thread to listen.
-//	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
-//	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-//	
-//	// Send a byte array.
-//	char len = 10;
-//	char data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-//	[client connect];
-//	[client sendBytes:&data count:len];
-//	
-//	// Receive a byte array.
-//	char received[len];
-//	[client receiveBytes:&received limit:len];
-//	
-//	// Compare results.
-//	STAssertEquals(memcmp(data, received, len), 0, nil);
-//	[client close];
-//}
+- (void)testSendingAndReceivingBytes {
+	// Spawn a thread to listen.
+	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Send a byte array.
+	int lenVal = 10;
+	char lenArr[] = {lenVal};
+	char data[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
+	[client connect];
+	long sent = [client sendBytes:lenArr count:1];
+	sent = [client sendBytes:data count:lenVal];
+	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+	
+	// Receive a byte array.
+	char received[lenVal];
+	while ([client receiveBytes:received limit:lenVal] < 0) {
+		NSLog(@"%@", [client lastError]);
+	}
+	
+	// Compare results.
+	STAssertEquals(memcmp(data, received, lenVal), 0, nil);
+	[client close];
+}
 
 #pragma mark Helpers
 
@@ -216,17 +223,25 @@
 	@autoreleasepool {
 		[server listen];
 		FastSocket *incoming = [server accept];
+		if (!incoming) {
+			NSLog(@"%@", [server lastError]);
+		}
 		
 		// Read length as first byte.
-		char len;
-		[incoming receiveBytes:&len limit:1];
+		char lenArr[1];
+		long count = [incoming receiveBytes:lenArr limit:1];
+		while (count < 1) {
+			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+			count = [incoming receiveBytes:lenArr limit:1];
+		}
+		int lenVal = lenArr[0];
 		
 		// Read bytes.
-		char buffer[len];
-		[incoming receiveBytes:&buffer limit:len];
+		char buffer[lenVal];
+		[incoming receiveBytes:buffer limit:lenVal];
 		
 		// Write bytes.
-		[incoming sendBytes:&buffer count:len];
+		[incoming sendBytes:buffer count:lenVal];
 		
 		// Close connection.
 		[incoming close];
