@@ -7,140 +7,136 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A97ECD815981EFD0057EB2C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A97EC9C15981D150057EB2C /* SenTestingKit.framework */; };
-		373FB2431306420600494B53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FB2421306420600494B53 /* Foundation.framework */; };
-		373FB2E01306427C00494B53 /* FastSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 373FB2DE1306427C00494B53 /* FastSocket.h */; };
-		373FB2E11306427C00494B53 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
-		373FB3001306496E00494B53 /* FastServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 373FB2FE1306496E00494B53 /* FastServerSocket.h */; };
-		373FB3011306496E00494B53 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
-		37E00E4413209EA800C7B6F5 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2FF1306496E00494B53 /* FastServerSocket.m */; };
-		37E00E4513209EA800C7B6F5 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 373FB2DF1306427C00494B53 /* FastSocket.m */; };
-		37E00E4613209EA900C7B6F5 /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E00E1113209C2600C7B6F5 /* FastSocketTest.m */; };
-		37E00E4B13209EDB00C7B6F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373FB2421306420600494B53 /* Foundation.framework */; };
+		370C9AFB170A2FEA004E4F99 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */; };
+		370C9AFF170A2FEA004E4F99 /* libFastSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 370C9AE5170A2FEA004E4F99 /* libFastSocket.a */; };
+		3796AF02170A311C0019F841 /* FastServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 3796AEFE170A311C0019F841 /* FastServerSocket.h */; };
+		3796AF03170A311C0019F841 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796AEFF170A311C0019F841 /* FastServerSocket.m */; };
+		3796AF04170A311C0019F841 /* FastSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 3796AF00170A311C0019F841 /* FastSocket.h */; };
+		3796AF05170A311C0019F841 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796AF01170A311C0019F841 /* FastSocket.m */; };
+		3796AF08170A31520019F841 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 370C9AED170A2FEA004E4F99 /* Foundation.framework */; };
+		3796AF09170A315E0019F841 /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796AF06170A31280019F841 /* FastSocketTest.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		370C9AFD170A2FEA004E4F99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 370C9ADD170A2FEA004E4F99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 370C9AE4170A2FEA004E4F99;
+			remoteInfo = FastSocket;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		1A97EC9C15981D150057EB2C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		373FB2421306420600494B53 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		373FB2DE1306427C00494B53 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
-		373FB2DF1306427C00494B53 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
-		373FB2FE1306496E00494B53 /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = "<group>"; };
-		373FB2FF1306496E00494B53 /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = "<group>"; };
-		37DFD0BC17094B930020EF4F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		37E00E1113209C2600C7B6F5 /* FastSocketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocketTest.m; sourceTree = "<group>"; };
-		37E00E2413209E2B00C7B6F5 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2AAC046055464E500DB518D /* libFastSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFastSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		370C9AE5170A2FEA004E4F99 /* libFastSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFastSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		370C9AED170A2FEA004E4F99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		370C9AF9170A2FEA004E4F99 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		370C9B11170A30D3004E4F99 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		370C9B12170A30D3004E4F99 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		3796AEFE170A311C0019F841 /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = SOURCE_ROOT; };
+		3796AEFF170A311C0019F841 /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = SOURCE_ROOT; };
+		3796AF00170A311C0019F841 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = SOURCE_ROOT; };
+		3796AF01170A311C0019F841 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = SOURCE_ROOT; };
+		3796AF06170A31280019F841 /* FastSocketTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastSocketTest.m; sourceTree = SOURCE_ROOT; };
+		3796AF07170A31280019F841 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		37E00E2113209E2B00C7B6F5 /* Frameworks */ = {
+		370C9AE2170A2FEA004E4F99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E00E4B13209EDB00C7B6F5 /* Foundation.framework in Frameworks */,
-				1A97ECD815981EFD0057EB2C /* SenTestingKit.framework in Frameworks */,
+				3796AF08170A31520019F841 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D289987405E68DCB004EDB86 /* Frameworks */ = {
+		370C9AF5170A2FEA004E4F99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				373FB2431306420600494B53 /* Foundation.framework in Frameworks */,
+				370C9AFB170A2FEA004E4F99 /* SenTestingKit.framework in Frameworks */,
+				370C9AFF170A2FEA004E4F99 /* libFastSocket.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08FB7794FE84155DC02AAC07 /* FastSocket */ = {
+		370C9ADC170A2FEA004E4F99 = {
 			isa = PBXGroup;
 			children = (
-				08FB7795FE84155DC02AAC07 /* Source */,
-				C6A0FF2B0290797F04C91782 /* Documentation */,
-				373FB25E1306425900494B53 /* Frameworks */,
-				1AB674ADFE9D54B511CA2CBB /* Products */,
+				370C9AEE170A2FEA004E4F99 /* Source */,
+				370C9B00170A2FEA004E4F99 /* Documentation */,
+				370C9AE7170A2FEA004E4F99 /* Frameworks */,
+				370C9AE6170A2FEA004E4F99 /* Products */,
 			);
-			name = FastSocket;
 			sourceTree = "<group>";
 		};
-		08FB7795FE84155DC02AAC07 /* Source */ = {
+		370C9AE6170A2FEA004E4F99 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				373FB2DE1306427C00494B53 /* FastSocket.h */,
-				373FB2DF1306427C00494B53 /* FastSocket.m */,
-				373FB2FE1306496E00494B53 /* FastServerSocket.h */,
-				373FB2FF1306496E00494B53 /* FastServerSocket.m */,
-				37E00E1113209C2600C7B6F5 /* FastSocketTest.m */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		1AB674ADFE9D54B511CA2CBB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D2AAC046055464E500DB518D /* libFastSocket.a */,
-				37E00E2413209E2B00C7B6F5 /* UnitTests.octest */,
+				370C9AE5170A2FEA004E4F99 /* libFastSocket.a */,
+				370C9AF9170A2FEA004E4F99 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		373FB25E1306425900494B53 /* Frameworks */ = {
+		370C9AE7170A2FEA004E4F99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				373FB2421306420600494B53 /* Foundation.framework */,
-				1A97EC9C15981D150057EB2C /* SenTestingKit.framework */,
+				370C9AED170A2FEA004E4F99 /* Foundation.framework */,
+				370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C6A0FF2B0290797F04C91782 /* Documentation */ = {
+		370C9AEE170A2FEA004E4F99 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				37DFD0BC17094B930020EF4F /* README.md */,
+				3796AF00170A311C0019F841 /* FastSocket.h */,
+				3796AF01170A311C0019F841 /* FastSocket.m */,
+				3796AEFE170A311C0019F841 /* FastServerSocket.h */,
+				3796AEFF170A311C0019F841 /* FastServerSocket.m */,
+				3796AF06170A31280019F841 /* FastSocketTest.m */,
+				3796AF07170A31280019F841 /* UnitTests-Info.plist */,
+			);
+			name = Source;
+			path = FastSocket;
+			sourceTree = "<group>";
+		};
+		370C9B00170A2FEA004E4F99 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				370C9B11170A30D3004E4F99 /* LICENSE */,
+				370C9B12170A30D3004E4F99 /* README.md */,
 			);
 			name = Documentation;
+			path = FastSocketTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D2AAC043055464E500DB518D /* Headers */ = {
+		370C9AE3170A2FEA004E4F99 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				373FB2E01306427C00494B53 /* FastSocket.h in Headers */,
-				373FB3001306496E00494B53 /* FastServerSocket.h in Headers */,
+				3796AF02170A311C0019F841 /* FastServerSocket.h in Headers */,
+				3796AF04170A311C0019F841 /* FastSocket.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		37E00E2313209E2B00C7B6F5 /* UnitTests */ = {
+		370C9AE4170A2FEA004E4F99 /* FastSocket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 37E00E2813209E2B00C7B6F5 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildConfigurationList = 370C9B0B170A2FEA004E4F99 /* Build configuration list for PBXNativeTarget "FastSocket" */;
 			buildPhases = (
-				37E00E2013209E2B00C7B6F5 /* Sources */,
-				37E00E2113209E2B00C7B6F5 /* Frameworks */,
-				37E00E2213209E2B00C7B6F5 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = UnitTests;
-			productName = UnitTests;
-			productReference = 37E00E2413209E2B00C7B6F5 /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
-		D2AAC045055464E500DB518D /* FastSocket */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "FastSocket" */;
-			buildPhases = (
-				D2AAC043055464E500DB518D /* Headers */,
-				D2AAC044055464E500DB518D /* Sources */,
-				D289987405E68DCB004EDB86 /* Frameworks */,
+				370C9AE1170A2FEA004E4F99 /* Sources */,
+				370C9AE2170A2FEA004E4F99 /* Frameworks */,
+				370C9AE3170A2FEA004E4F99 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -148,39 +144,67 @@
 			);
 			name = FastSocket;
 			productName = FastSocket;
-			productReference = D2AAC046055464E500DB518D /* libFastSocket.a */;
+			productReference = 370C9AE5170A2FEA004E4F99 /* libFastSocket.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		370C9AF8170A2FEA004E4F99 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 370C9B0E170A2FEA004E4F99 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				370C9AF4170A2FEA004E4F99 /* Sources */,
+				370C9AF5170A2FEA004E4F99 /* Frameworks */,
+				370C9AF6170A2FEA004E4F99 /* Resources */,
+				370C9AF7170A2FEA004E4F99 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				370C9AFE170A2FEA004E4F99 /* PBXTargetDependency */,
+			);
+			name = UnitTests;
+			productName = FastSocketTests;
+			productReference = 370C9AF9170A2FEA004E4F99 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		08FB7793FE84155DC02AAC07 /* Project object */ = {
+		370C9ADD170A2FEA004E4F99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Daniel Reese";
 			};
-			buildConfigurationList = 1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "FastSocket" */;
+			buildConfigurationList = 370C9AE0170A2FEA004E4F99 /* Build configuration list for PBXProject "FastSocket" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 08FB7794FE84155DC02AAC07 /* FastSocket */;
+			mainGroup = 370C9ADC170A2FEA004E4F99;
+			productRefGroup = 370C9AE6170A2FEA004E4F99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC045055464E500DB518D /* FastSocket */,
-				37E00E2313209E2B00C7B6F5 /* UnitTests */,
+				370C9AE4170A2FEA004E4F99 /* FastSocket */,
+				370C9AF8170A2FEA004E4F99 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		370C9AF6170A2FEA004E4F99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
-		37E00E2213209E2B00C7B6F5 /* ShellScript */ = {
+		370C9AF7170A2FEA004E4F99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -196,156 +220,160 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		37E00E2013209E2B00C7B6F5 /* Sources */ = {
+		370C9AE1170A2FEA004E4F99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E00E4413209EA800C7B6F5 /* FastServerSocket.m in Sources */,
-				37E00E4513209EA800C7B6F5 /* FastSocket.m in Sources */,
-				37E00E4613209EA900C7B6F5 /* FastSocketTest.m in Sources */,
+				3796AF03170A311C0019F841 /* FastServerSocket.m in Sources */,
+				3796AF05170A311C0019F841 /* FastSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D2AAC044055464E500DB518D /* Sources */ = {
+		370C9AF4170A2FEA004E4F99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				373FB2E11306427C00494B53 /* FastSocket.m in Sources */,
-				373FB3011306496E00494B53 /* FastServerSocket.m in Sources */,
+				3796AF09170A315E0019F841 /* FastSocketTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		370C9AFE170A2FEA004E4F99 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 370C9AE4170A2FEA004E4F99 /* FastSocket */;
+			targetProxy = 370C9AFD170A2FEA004E4F99 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		1DEB91EC08733DB70010E9CD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/lib;
-				PRODUCT_NAME = FastSocket;
-			};
-			name = Debug;
-		};
-		1DEB91ED08733DB70010E9CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/lib;
-				PRODUCT_NAME = FastSocket;
-			};
-			name = Release;
-		};
-		1DEB91F008733DB70010E9CD /* Debug */ = {
+		370C9B09170A2FEA004E4F99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		1DEB91F108733DB70010E9CD /* Release */ = {
+		370C9B0A170A2FEA004E4F99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = "";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		37E00E2613209E2B00C7B6F5 /* Debug */ = {
+		370C9B0C170A2FEA004E4F99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = UnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		370C9B0D170A2FEA004E4F99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		370C9B0F170A2FEA004E4F99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
-		37E00E2713209E2B00C7B6F5 /* Release */ = {
+		370C9B10170A2FEA004E4F99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = UnitTests;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91EB08733DB70010E9CD /* Build configuration list for PBXNativeTarget "FastSocket" */ = {
+		370C9AE0170A2FEA004E4F99 /* Build configuration list for PBXProject "FastSocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB91EC08733DB70010E9CD /* Debug */,
-				1DEB91ED08733DB70010E9CD /* Release */,
+				370C9B09170A2FEA004E4F99 /* Debug */,
+				370C9B0A170A2FEA004E4F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB91EF08733DB70010E9CD /* Build configuration list for PBXProject "FastSocket" */ = {
+		370C9B0B170A2FEA004E4F99 /* Build configuration list for PBXNativeTarget "FastSocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB91F008733DB70010E9CD /* Debug */,
-				1DEB91F108733DB70010E9CD /* Release */,
+				370C9B0C170A2FEA004E4F99 /* Debug */,
+				370C9B0D170A2FEA004E4F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		37E00E2813209E2B00C7B6F5 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+		370C9B0E170A2FEA004E4F99 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				37E00E2613209E2B00C7B6F5 /* Debug */,
-				37E00E2713209E2B00C7B6F5 /* Release */,
+				370C9B0F170A2FEA004E4F99 /* Debug */,
+				370C9B10170A2FEA004E4F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+	rootObject = 370C9ADD170A2FEA004E4F99 /* Project object */;
 }

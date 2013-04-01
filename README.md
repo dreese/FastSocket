@@ -1,4 +1,4 @@
-Fast Socket
+FastSocket
 ===============
 
 Description
@@ -17,33 +17,42 @@ For more information, please visit the [project homepage](http://github.com/dree
 Download
 ---------------
 
-Download [Fast Socket](https://github.com/dreese/fast-socket/zipball/master).
+Download [FastSocket](https://github.com/dreese/fast-socket/zipball/master).
 
 Examples
 ---------------
 
-Please check out the unit tests for examples of how to use these classes.
+Create and connect a client socket.
+
+    FastSocket *client = [[FastSocket alloc] initWithHost:@"localhost" andPort:@"34567"];
+	[client connect];
+
+Send a file.
+
+    [client sendFile:@"/tmp/filetosend.txt"];
+
+Receive a file of a given length.
+
+	[client receiveFile:@"/tmp/newlyreceivedfile.txt" length:1024];
+
+Send and receive raw bytes.
+
+    [client sendBytes:(void *)buf count:(long)count];
+	[client receiveBytes:(void *)buf limit:(long)limit];
+
+Close the connection.
+
+	[client close];
+
+Please check out the unit tests for more examples of how to use these classes.
+
+Creator
+---------------
+
+[Daniel Reese](http://www.danandcheryl.com/)  
+[@dreese](http://twitter.com/dreese)
 
 License
 ---------------
 
-Copyright &copy; 2011-2013 [Daniel Reese](http://www.danandcheryl.com/)
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-
+FastSocket is available under the [MIT license](http://opensource.org/licenses/MIT).

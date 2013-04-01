@@ -184,13 +184,52 @@
 	STAssertTrue([client close], @"Could not close connection");
 }
 
+//- (void)testSendingAndReceivingBytes {
+//	// Spawn a thread to listen.
+//	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
+//	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+//	
+//	// Send a byte array.
+//	char len = 10;
+//	char data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+//	[client connect];
+//	[client sendBytes:&data count:len];
+//	
+//	// Receive a byte array.
+//	char received[len];
+//	[client receiveBytes:&received limit:len];
+//	
+//	// Compare results.
+//	STAssertEquals(memcmp(data, received, len), 0, nil);
+//	[client close];
+//}
+
 #pragma mark Helpers
 
 - (void)simpleListen:(id)obj {
 	@autoreleasepool {
-	
 		[server listen]; // Incoming connections just queue up.
-	
+	}
+}
+
+- (void)listenAndRepeat:(id)obj {
+	@autoreleasepool {
+		[server listen];
+		FastSocket *incoming = [server accept];
+		
+		// Read length as first byte.
+		char len;
+		[incoming receiveBytes:&len limit:1];
+		
+		// Read bytes.
+		char buffer[len];
+		[incoming receiveBytes:&buffer limit:len];
+		
+		// Write bytes.
+		[incoming sendBytes:&buffer count:len];
+		
+		// Close connection.
+		[incoming close];
 	}
 }
 
