@@ -24,12 +24,12 @@ Examples
 
 Create and connect a client socket.
 
-    FastSocket *client = [[FastSocket alloc] initWithHost:@"localhost" andPort:@"34567"];
+	FastSocket *client = [[FastSocket alloc] initWithHost:@"localhost" andPort:@"34567"];
 	[client connect];
 
 Send a file.
 
-    long sent = [client sendFile:@"/tmp/filetosend.txt"];
+	long sent = [client sendFile:@"/tmp/filetosend.txt"];
 
 Receive a file of a given length.
 
@@ -37,12 +37,12 @@ Receive a file of a given length.
 
 Send raw bytes.
 
-    char data[] = {42};
-    long sent = [client sendBytes:data count:1];
+	char data[] = {42};
+	long sent = [client sendBytes:data count:1];
 
 Receive raw bytes.
 
-    char data[42];
+	char data[42];
 	long received = [client receiveBytes:data limit:42];
 
 Close the connection.
