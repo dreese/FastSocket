@@ -17,7 +17,7 @@ For more information, please visit the [project homepage](http://github.com/dree
 Download
 ---------------
 
-Download [FastSocket](https://github.com/dreese/fast-socket/zipball/master).
+Download [FastSocket](https://github.com/dreese/fast-socket/archive/master.zip).
 
 Examples
 ---------------
