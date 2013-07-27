@@ -219,6 +219,18 @@
 	return received;
 }
 
+- (BOOL)receiveBytes:(void *)buf count:(long)count {
+	while (count > 0) {
+		long received = [self receiveBytes:buf limit:count];
+		if (received < 1) {
+			break;
+		}
+		count -= received;
+		buf += received;
+	}
+	return (count == 0);
+}
+
 - (long)sendFile:(NSString *)path {
 	int fd = 0;
 	long sent = 0;

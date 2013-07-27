@@ -81,7 +81,7 @@
 	STAssertTrue([client connect], @"Connection attempt failed");
 	STAssertTrue([client isConnected], @"Client should be connected");
 	STAssertTrue([server close], @"Connection should be closed");
-	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
 	STAssertFalse([client isConnected], @"Client should no longer be connected");
 }
 
@@ -192,22 +192,48 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Send a byte array.
-	int lenVal = 10;
-	char lenArr[] = {lenVal};
-	char data[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
+	long len = 10;
+	unsigned char sent[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
 	[client connect];
-	long sent = [client sendBytes:lenArr count:1];
-	sent = [client sendBytes:data count:lenVal];
-	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+	long count = [client sendBytes:sent count:len];
+	STAssertEquals(count, len, @"send error: %@", [client lastError]);
+	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive a byte array.
-	char received[lenVal];
-	while ([client receiveBytes:received limit:lenVal] < 0) {
-		NSLog(@"%@", [client lastError]);
-	}
+	unsigned char received[len];
+	count = [client receiveBytes:received limit:len];
+	STAssertEquals(count, len, @"receive error: %@", [client lastError]);
 	
 	// Compare results.
-	STAssertEquals(memcmp(data, received, lenVal), 0, nil);
+	STAssertEquals(memcmp(sent, received, len), 0, nil);
+	[client close];
+}
+
+- (void)testSendingAndReceivingRandomBytes {
+	// Spawn a thread to listen.
+	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Create a random byte array larger than the buffer.
+	long len = 1024 * 10 * 200;
+	unsigned char sent[len];
+	for (int i = 0; i < len; ++i) {
+		sent[i] = (random() % 256);
+	}
+	NSLog(@"sending %li bytes", len);
+	
+	// Send the array.
+	[client connect];
+	long count = [client sendBytes:sent count:len];
+	STAssertEquals(count, len, @"send error: %@", [client lastError]);
+	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Receive the array.
+	unsigned char received[len];
+	STAssertTrue([client receiveBytes:received count:len], @"receive error: %@", [client lastError]);
+	
+	// Compare results.
+	STAssertEquals(memcmp(sent, received, len), 0, nil);
 	[client close];
 }
 
@@ -221,30 +247,35 @@
 
 - (void)listenAndRepeat:(id)obj {
 	@autoreleasepool {
+		NSLog(@"started listening");
 		[server listen];
+		
 		FastSocket *incoming = [server accept];
 		if (!incoming) {
-			NSLog(@"%@", [server lastError]);
+			NSLog(@"accept error: %@", [server lastError]);
+			return;
 		}
 		
-		// Read length as first byte.
-		char lenArr[1];
-		long count = [incoming receiveBytes:lenArr limit:1];
-		while (count < 1) {
+		// Read some bytes then echo them back.
+		int bufSize = 2048;
+		unsigned char buf[bufSize];
+		long count = 0;
+		do {
+			// Read bytes.
+			count = [incoming receiveBytes:buf limit:bufSize];
+			
+			// Write bytes.
+			long remaining = count;
+			while (remaining > 0) {
+				count = [incoming sendBytes:buf count:remaining];
+				remaining -= count;
+			}
+			
+			// Allow other threads to work.
 			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-			count = [incoming receiveBytes:lenArr limit:1];
-		}
-		int lenVal = lenArr[0];
+		} while (count > 0);
 		
-		// Read bytes.
-		char buffer[lenVal];
-		[incoming receiveBytes:buffer limit:lenVal];
-		
-		// Write bytes.
-		[incoming sendBytes:buffer count:lenVal];
-		
-		// Close connection.
-		[incoming close];
+		NSLog(@"stopped listening with error: %@", (count < 0 ? [incoming lastError] : @"none"));
 	}
 }
 

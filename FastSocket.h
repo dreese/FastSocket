@@ -50,7 +50,29 @@
 - (BOOL)close;
 
 - (long)sendBytes:(void *)buf count:(long)count;
+
+/**
+ * Receives an unpredictable number bytes up to the specified limit. Stores the bytes
+ * in the given buffer and returns the actual number received.
+ *
+ * @param buf   The buffer in which to store the bytes received.
+ * @param limit The maximum number of bytes to receive, typically the size of the buffer.
+ *
+ * @return The actual number of bytes received.
+ */
 - (long)receiveBytes:(void *)buf limit:(long)limit;
+
+/**
+ * Receives the exact number of bytes specified unless a timeout or other error occurs.
+ * Stores the bytes in the given buffer and returns whether the correct number of bytes
+ * was received.
+ *
+ * @param buf   The buffer in which to store the bytes received.
+ * @param count The exact number of bytes to receive, typically the size of the buffer.
+ *
+ * @return YES if the correct number of bytes was received, NO otherwise.
+ */
+- (BOOL)receiveBytes:(void *)buf count:(long)count;
 
 - (long)sendFile:(NSString *)path;
 - (long)receiveFile:(NSString *)path length:(long)length;
