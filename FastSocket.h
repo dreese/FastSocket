@@ -30,7 +30,7 @@
 @protected
 	void *buffer;
 	size_t size;
-	int timeout;
+	time_t timeout;
 	int segmentSize;
 }
 
@@ -41,7 +41,7 @@
 
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
-- (void)buffer:(void **)buf size:(int *)size;
+- (void)buffer:(void **)buf size:(size_t *)size;
 
 #pragma mark Actions
 
@@ -80,8 +80,8 @@
 
 #pragma mark Settings
 
-- (int)timeout;
-- (BOOL)setTimeout:(int)seconds;
+- (time_t)timeout;
+- (BOOL)setTimeout:(time_t)seconds;
 
 - (int)segmentSize;
 - (BOOL)setSegmentSize:(int)bytes;

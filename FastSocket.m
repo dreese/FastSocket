@@ -100,7 +100,7 @@
 	return self;
 }
 
-- (void)buffer:(void **)outBuf size:(int *)outSize {
+- (void)buffer:(void **)outBuf size:(size_t *)outSize {
 	if (outBuf && outSize) {
 		*outBuf = buffer;
 		*outSize = size;
@@ -244,7 +244,7 @@
 			// Ignore because this will still work with disk caching on.
 		}
 		
-		int count;
+		long count;
 		while (1) {
 			count = read(fd, buffer, size);
 			if (count == 0) {
@@ -305,7 +305,7 @@
 				break;
 			}
 			if (outHash) {
-				CC_MD5_Update(&context, buffer, received);
+				CC_MD5_Update(&context, buffer, (CC_LONG)received);
 			}
 			remaining -= received;
 		}
@@ -323,7 +323,7 @@
 
 #pragma mark Settings
 
-- (int)timeout {
+- (time_t)timeout {
 	if (sockfd > 0) {
 		struct timeval tv;
 		if (getsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
@@ -335,7 +335,7 @@
 	return timeout;
 }
 
-- (BOOL)setTimeout:(int)seconds {
+- (BOOL)setTimeout:(time_t)seconds {
 	if (sockfd > 0) {
 		struct timeval tv = {seconds, 0};
 		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
