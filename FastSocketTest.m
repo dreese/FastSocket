@@ -93,7 +93,7 @@
 	// Set value before connect.
 	STAssertTrue([client setTimeout:100], @"Could not set timeout");
 	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client timeout], 100, @"Timeout is not correct");
+	STAssertEquals([client timeout], 100L, @"Timeout is not correct");
 	STAssertTrue([client close], @"Could not close connection");
 }
 
@@ -105,7 +105,7 @@
 	// Set value after connect.
 	STAssertTrue([client connect], @"Connection attempt failed");
 	STAssertTrue([client setTimeout:100], @"Could not set timeout");
-	STAssertEquals([client timeout], 100, @"Timeout is not correct");
+	STAssertEquals([client timeout], 100L, @"Timeout is not correct");
 	STAssertTrue([client close], @"Could not close connection");
 }
 
@@ -118,7 +118,7 @@
 	STAssertTrue([client setTimeout:100], @"Could not set timeout");
 	STAssertTrue([client setTimeout:101], @"Could not set timeout second time");
 	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client timeout], 101, @"Timeout is not correct");
+	STAssertEquals([client timeout], 101L, @"Timeout is not correct");
 	STAssertTrue([client close], @"Could not close connection");
 }
 
@@ -131,7 +131,7 @@
 	STAssertTrue([client connect], @"Connection attempt failed");
 	STAssertTrue([client setTimeout:100], @"Could not set timeout");
 	STAssertTrue([client setTimeout:101], @"Could not set timeout second time");
-	STAssertEquals([client timeout], 101, @"Timeout is not correct");
+	STAssertEquals([client timeout], 101L, @"Timeout is not correct");
 	STAssertTrue([client close], @"Could not close connection");
 }
 

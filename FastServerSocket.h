@@ -26,7 +26,7 @@
 @class FastSocket;
 @interface FastServerSocket : NSObject {
 @protected
-	time_t timeout;
+	long timeout;
 }
 
 @property (nonatomic, readonly) int sockfd;
@@ -44,7 +44,7 @@
 
 #pragma mark Settings
 
-- (time_t)timeout;
-- (BOOL)setTimeout:(time_t)seconds;
+- (long)timeout;
+- (BOOL)setTimeout:(long)seconds;
 
 @end

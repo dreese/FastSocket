@@ -155,7 +155,7 @@
 
 #pragma mark Settings
 
-- (time_t)timeout {
+- (long)timeout {
 	if (sockfd > 0) {
 		struct timeval tv;
 		if (getsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
@@ -167,7 +167,7 @@
 	return timeout;
 }
 
-- (BOOL)setTimeout:(time_t)seconds {
+- (BOOL)setTimeout:(long)seconds {
 	if (sockfd > 0) {
 		struct timeval tv = {seconds, 0};
 		if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {

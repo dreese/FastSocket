@@ -29,8 +29,8 @@
 @interface FastSocket : NSObject {
 @protected
 	void *buffer;
-	size_t size;
-	time_t timeout;
+	long size;
+	long timeout;
 	int segmentSize;
 }
 
@@ -41,7 +41,7 @@
 
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
 - (id)initWithFileDescriptor:(int)fd;
-- (void)buffer:(void **)buf size:(size_t *)size;
+- (void)buffer:(void **)buf size:(long *)size;
 
 #pragma mark Actions
 
@@ -80,8 +80,8 @@
 
 #pragma mark Settings
 
-- (time_t)timeout;
-- (BOOL)setTimeout:(time_t)seconds;
+- (long)timeout;
+- (BOOL)setTimeout:(long)seconds;
 
 - (int)segmentSize;
 - (BOOL)setSegmentSize:(int)bytes;
