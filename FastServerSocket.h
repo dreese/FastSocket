@@ -38,13 +38,44 @@
 
 #pragma mark Actions
 
+/**
+ Starts listening for incoming connections.
+ 
+ @return YES if the listen succeeded, NO otherwise.
+ */
 - (BOOL)listen;
-- (BOOL)close;
+
+/**
+ Accepts an incoming connection from a remote host. Blocks until a connection is received.
+ 
+ @return A socket connected to the remote host.
+ */
 - (FastSocket *)accept;
+
+/**
+ Closes the connection to the remote host.
+ 
+ @return YES if the close succeeded, NO otherwise.
+ */
+- (BOOL)close;
 
 #pragma mark Settings
 
+/**
+ Returns the number of seconds to wait without any network activity before giving up and
+ returning an error. The default is zero seconds, in which case it will never time out.
+ 
+ @return The current timeout value in seconds.
+ */
 - (long)timeout;
+
+/**
+ Sets the number of seconds to wait without any network activity before giving up and
+ returning an error. The default is zero seconds, in which case it will never time out.
+ 
+ @param seconds The number of seconds to wait before timing out.
+ @return YES if the timeout value was set successfully, NO otherwise.
+ */
 - (BOOL)setTimeout:(long)seconds;
 
 @end
