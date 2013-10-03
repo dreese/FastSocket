@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		370C9AFB170A2FEA004E4F99 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */; };
 		370C9AFF170A2FEA004E4F99 /* libFastSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 370C9AE5170A2FEA004E4F99 /* libFastSocket.a */; };
 		3796AF02170A311C0019F841 /* FastServerSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 3796AEFE170A311C0019F841 /* FastServerSocket.h */; };
 		3796AF03170A311C0019F841 /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796AEFF170A311C0019F841 /* FastServerSocket.m */; };
@@ -30,8 +29,7 @@
 /* Begin PBXFileReference section */
 		370C9AE5170A2FEA004E4F99 /* libFastSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFastSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		370C9AED170A2FEA004E4F99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		370C9AF9170A2FEA004E4F99 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		370C9AF9170A2FEA004E4F99 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		370C9B11170A30D3004E4F99 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		370C9B12170A30D3004E4F99 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		3796AEFE170A311C0019F841 /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = SOURCE_ROOT; };
@@ -55,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				370C9AFB170A2FEA004E4F99 /* SenTestingKit.framework in Frameworks */,
 				370C9AFF170A2FEA004E4F99 /* libFastSocket.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				370C9AE5170A2FEA004E4F99 /* libFastSocket.a */,
-				370C9AF9170A2FEA004E4F99 /* UnitTests.octest */,
+				370C9AF9170A2FEA004E4F99 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				370C9AED170A2FEA004E4F99 /* Foundation.framework */,
-				370C9AFA170A2FEA004E4F99 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,8 +159,8 @@
 			);
 			name = UnitTests;
 			productName = FastSocketTests;
-			productReference = 370C9AF9170A2FEA004E4F99 /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 370C9AF9170A2FEA004E4F99 /* UnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -328,7 +324,6 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -339,7 +334,6 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

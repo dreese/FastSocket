@@ -21,12 +21,12 @@
 //  THE SOFTWARE.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "FastSocket.h"
 #import "FastServerSocket.h"
+#import <XCTest/XCTest.h>
 
 
-@interface FastSocketTest : SenTestCase {
+@interface FastSocketTest : XCTestCase {
 	FastSocket *client;
 	FastServerSocket *server;
 }
@@ -50,18 +50,18 @@
 
 - (void)testConnect {
 	// No failures yet.
-	STAssertNil([client lastError], @"Last error should be nil");
+	XCTAssertNil([client lastError]);
 	
 	// Nothing is listening yet.
-	STAssertFalse([client connect], @"Connection attempt succeeded");
-	STAssertNotNil([client lastError], @"Last error should not be nil");
+	XCTAssertFalse([client connect]);
+	XCTAssertNotNil([client lastError]);
 	
 	// Spawn a thread to listen.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Connection should now succeed.
-	STAssertTrue([client connect], @"Connection attempt failed");
+	XCTAssertTrue([client connect], @"Connection attempt failed");
 	//STAssertNil([client lastError], @"Last error should be nil"); // TODO: Not sure if this should be cleared out or just left alone.
 }
 
@@ -71,18 +71,18 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Check connected state before and after connecting, and after closing.
-	STAssertFalse([client isConnected], @"Should not be connected");
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client isConnected], @"Client should be connected");
-	STAssertTrue([client close], @"Connection should be closed");
-	STAssertFalse([client isConnected], @"Client should no longer be connected");
+	XCTAssertFalse([client isConnected]);
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client isConnected]);
+	XCTAssertTrue([client close]);
+	XCTAssertFalse([client isConnected]);
 	
 	// Close server socket and verify that the client knows it's no longer connected.
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client isConnected], @"Client should be connected");
-	STAssertTrue([server close], @"Connection should be closed");
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client isConnected]);
+	XCTAssertTrue([server close]);
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
-	STAssertFalse([client isConnected], @"Client should no longer be connected");
+	XCTAssertFalse([client isConnected]);
 }
 
 - (void)testTimeoutBefore {
@@ -91,10 +91,10 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value before connect.
-	STAssertTrue([client setTimeout:100], @"Could not set timeout");
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client timeout], 100L, @"Timeout is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client setTimeout:100]);
+	XCTAssertTrue([client connect]);
+	XCTAssertEqual([client timeout], 100L);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testTimeoutAfter {
@@ -103,10 +103,10 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value after connect.
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client setTimeout:100], @"Could not set timeout");
-	STAssertEquals([client timeout], 100L, @"Timeout is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client setTimeout:100]);
+	XCTAssertEqual([client timeout], 100L);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testTimeoutMultipleBefore {
@@ -115,11 +115,11 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value twice before connect.
-	STAssertTrue([client setTimeout:100], @"Could not set timeout");
-	STAssertTrue([client setTimeout:101], @"Could not set timeout second time");
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client timeout], 101L, @"Timeout is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client setTimeout:100]);
+	XCTAssertTrue([client setTimeout:101]);
+	XCTAssertTrue([client connect]);
+	XCTAssertEqual([client timeout], 101L);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testTimeoutMultipleAfter {
@@ -128,11 +128,11 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value twice after connect.
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client setTimeout:100], @"Could not set timeout");
-	STAssertTrue([client setTimeout:101], @"Could not set timeout second time");
-	STAssertEquals([client timeout], 101L, @"Timeout is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client setTimeout:100]);
+	XCTAssertTrue([client setTimeout:101]);
+	XCTAssertEqual([client timeout], 101L);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testSegmentSizeBefore {
@@ -141,10 +141,10 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value before connect.
-	STAssertTrue([client setSegmentSize:10000], @"Could not set segment size");
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client segmentSize], 10000, @"Segment size is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client setSegmentSize:10000]);
+	XCTAssertTrue([client connect]);
+	XCTAssertEqual([client segmentSize], 10000);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testSegmentSizeAfter {
@@ -153,10 +153,10 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value after connect.
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client setSegmentSize:10000], @"Could not set segment size");
-	STAssertEquals([client segmentSize], 10000, @"Segment size is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client setSegmentSize:10000]);
+	XCTAssertEqual([client segmentSize], 10000);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testSegmentSizeMultipleBefore {
@@ -165,11 +165,11 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value twice before connect.
-	STAssertTrue([client setSegmentSize:10000], @"Could not set segment size");
-	STAssertTrue([client setSegmentSize:10001], @"Could not set segment size second time");
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertEquals([client segmentSize], 10001, @"Segment size is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client setSegmentSize:10000]);
+	XCTAssertTrue([client setSegmentSize:10001]);
+	XCTAssertTrue([client connect]);
+	XCTAssertEqual([client segmentSize], 10001);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testSegmentSizeMultipleAfter {
@@ -178,12 +178,12 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Set value twice after connect.
-	STAssertTrue([client connect], @"Connection attempt failed");
-	STAssertTrue([client setSegmentSize:10000], @"Could not set segment size");
-	STAssertFalse([client setSegmentSize:10001], @"Should not be able to increase segment size once set");
-	STAssertTrue([client setSegmentSize:9999], @"Could not set segment size second time");
-	STAssertEquals([client segmentSize], 9999, @"Segment size is not correct");
-	STAssertTrue([client close], @"Could not close connection");
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client setSegmentSize:10000]);
+	XCTAssertFalse([client setSegmentSize:10001]);
+	XCTAssertTrue([client setSegmentSize:9999]);
+	XCTAssertEqual([client segmentSize], 9999);
+	XCTAssertTrue([client close]);
 }
 
 - (void)testSendingAndReceivingBytes {
@@ -196,16 +196,16 @@
 	unsigned char sent[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
 	[client connect];
 	long count = [client sendBytes:sent count:len];
-	STAssertEquals(count, len, @"send error: %@", [client lastError]);
+	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive a byte array.
 	unsigned char received[len];
 	count = [client receiveBytes:received limit:len];
-	STAssertEquals(count, len, @"receive error: %@", [client lastError]);
+	XCTAssertEqual(count, len, @"receive error: %@", [client lastError]);
 	
 	// Compare results.
-	STAssertEquals(memcmp(sent, received, len), 0, nil);
+	XCTAssertEqual(memcmp(sent, received, len), 0);
 	[client close];
 }
 
@@ -225,15 +225,15 @@
 	// Send the array.
 	[client connect];
 	long count = [client sendBytes:sent count:len];
-	STAssertEquals(count, len, @"send error: %@", [client lastError]);
+	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive the array.
 	unsigned char received[len];
-	STAssertTrue([client receiveBytes:received count:len], @"receive error: %@", [client lastError]);
+	XCTAssertTrue([client receiveBytes:received count:len], @"receive error: %@", [client lastError]);
 	
 	// Compare results.
-	STAssertEquals(memcmp(sent, received, len), 0, nil);
+	XCTAssertEqual(memcmp(sent, received, len), 0);
 	[client close];
 }
 
