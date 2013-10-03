@@ -40,10 +40,15 @@ Send raw bytes.
 	char data[] = {42};
 	long sent = [client sendBytes:data count:1];
 
-Receive raw bytes.
+Receive available raw bytes up to the given limit.
 
 	char data[42];
 	long received = [client receiveBytes:data limit:42];
+
+Receive the exact number of raw bytes given.
+
+	char data[1000];
+	long received = [client receiveBytes:data count:1000];
 
 Close the connection.
 
