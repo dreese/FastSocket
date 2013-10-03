@@ -17,7 +17,7 @@ For more information, please visit the [project homepage](http://github.com/dree
 Download
 ---------------
 
-Download [FastSocket](https://github.com/dreese/fast-socket/archive/master.zip).
+Download the [latest release](https://github.com/dreese/fast-socket/releases) of FastSocket or try the [nightly version](https://github.com/dreese/fast-socket/archive/master.zip).
 
 Examples
 ---------------
