@@ -34,12 +34,47 @@
 	int segmentSize;
 }
 
+#pragma mark - Properties
+
+/**
+ The file descriptor used to communicate to the remote machine.
+ */
 @property (nonatomic, readonly) int sockfd;
+
+/**
+ The host name of the remote machine.
+ */
 @property (nonatomic, readonly) NSString *host;
+
+/**
+ The port number of the remote machine.
+ */
 @property (nonatomic, readonly) NSString *port;
+
+/**
+ The last error that occured. This value is not set to nil after a successful call, so it is not
+ appropriate to test this value to check for error conditions. Check for a NO or nil return value.
+ */
 @property (nonatomic, readonly) NSError *lastError;
 
+#pragma mark - Initializers
+
+/**
+ Returns an initialized FastSocket object configured to connect to the given host name and port number.
+ 
+ @param host The host name of the remote host.
+ @param port The port number on which to connect.
+ @return An initialized FastSocket object configured to connect to the given host name and port number.
+ */
 - (id)initWithHost:(NSString *)host andPort:(NSString *)port;
+
+/**
+ Returns an initialized FastSocket object configured to communicate throught the given file descriptor.
+ This method is primary used by a server socket to receive an incoming connection.
+ 
+ @param fd The file descriptor to use for communication.
+ @return An initialized FastSocket object configured to communicate throught the given file descriptor.
+ */
 - (id)initWithFileDescriptor:(int)fd;
 
 /**
