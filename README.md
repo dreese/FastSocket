@@ -56,14 +56,14 @@ Release Notes
 
 2013 Oct 3 — v1.1
 
-* Converted to ARC.
-* Added -[FastSocket isConnected] method.
-* Added -[FastSocket receiveBytes:count:] method for receiving an exact number of bytes. This differs from -[FastSocket receiveBytes:limit:] in that the new method waits for the given number of bytes is received, or a timeout, before returning.
-* Added header documentation for use in Xcode 5.
+	• Converted to ARC.
+	• Added -[FastSocket isConnected] method.
+	• Added -[FastSocket receiveBytes:count:] method for receiving an exact number of bytes. This differs from -[FastSocket receiveBytes:limit:] in that the new method waits for the given number of bytes is received, or a timeout, before returning.
+	• Added header documentation for use in Xcode 5.
 
 2012 Jun 24 — v1.0
 
-* Initial release.
+	• Initial release.
 
 Creator
 ---------------
