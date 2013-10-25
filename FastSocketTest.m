@@ -65,7 +65,7 @@
 	//STAssertNil([client lastError], @"Last error should be nil"); // TODO: Not sure if this should be cleared out or just left alone.
 }
 
-- (void)testConnectWtihDefaultTimeout {
+- (void)testConnectWithDefaultTimeout {
 	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
 	[client close];
 	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
@@ -82,7 +82,7 @@
 	XCTAssertTrue(actualTime < 80.0, @"timeout was %.1f", actualTime);
 }
 
-- (void)testConnectWtihCustomTimeout {
+- (void)testConnectWithCustomTimeout {
 	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
 	[client close];
 	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
