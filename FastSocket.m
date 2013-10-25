@@ -50,6 +50,16 @@
 #include <unistd.h>
 
 
+@interface FastSocket () {
+@protected
+	void *buffer;
+	long size;
+	long timeout;
+	int segmentSize;
+}
+@end
+
+
 @implementation FastSocket
 
 - (id)initWithHost:(NSString *)remoteHost andPort:(NSString *)remotePort {

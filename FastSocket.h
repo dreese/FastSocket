@@ -26,13 +26,7 @@
 
 #define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%s", (str)] forKey:NSLocalizedDescriptionKey]]
 
-@interface FastSocket : NSObject {
-@protected
-	void *buffer;
-	long size;
-	long timeout;
-	int segmentSize;
-}
+@interface FastSocket : NSObject
 
 #pragma mark - Properties
 
@@ -86,7 +80,7 @@
  */
 - (void)buffer:(void **)buf size:(long *)size;
 
-#pragma mark Actions
+#pragma mark - Actions
 
 /**
  Connect the socket to the remote host.
@@ -179,7 +173,7 @@
  */
 - (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash;
 
-#pragma mark Settings
+#pragma mark - Settings
 
 /**
  Returns the number of seconds to wait without any network activity before giving up and
