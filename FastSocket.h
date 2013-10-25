@@ -96,6 +96,14 @@
 - (BOOL)connect;
 
 /**
+ Connect the socket to the remote host with the given timeout value.
+ 
+ @param timeout The maximum amount of time to wait for a connection to succeed.
+ @return YES if the connection succeeded, NO otherwise.
+ */
+- (BOOL)connect:(NSUInteger)timeout;
+
+/**
  Returns whether the socket is currently connected.
  
  @return YES if the socket is connected, NO otherwise.

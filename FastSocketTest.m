@@ -61,8 +61,42 @@
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Connection should now succeed.
-	XCTAssertTrue([client connect], @"Connection attempt failed");
+	XCTAssertTrue([client connect]);
 	//STAssertNil([client lastError], @"Last error should be nil"); // TODO: Not sure if this should be cleared out or just left alone.
+}
+
+- (void)testConnectWtihDefaultTimeout {
+	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
+	[client close];
+	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
+	
+	// Connection should timeout.
+	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertFalse([client connect]);
+	NSTimeInterval endTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertNotNil([client lastError]);
+	
+	// Default timeout is 75 seconds on my machine.
+	NSTimeInterval actualTime = endTime - startTime;
+	XCTAssertTrue(actualTime > 75.0, @"timeout was %.1f", actualTime);
+	XCTAssertTrue(actualTime < 80.0, @"timeout was %.1f", actualTime);
+}
+
+- (void)testConnectWtihCustomTimeout {
+	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
+	[client close];
+	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
+	
+	// Connection should timeout.
+	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertFalse([client connect:10]);
+	NSTimeInterval endTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertNotNil([client lastError]);
+	
+	// Check the duration of the timeout.
+	NSTimeInterval actualTime = endTime - startTime;
+	XCTAssertTrue(actualTime > 10.0, @"timeout was %.1f", actualTime);
+	XCTAssertTrue(actualTime < 15.0, @"timeout was %.1f", actualTime);
 }
 
 - (void)testIsConnected {

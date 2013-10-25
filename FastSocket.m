@@ -114,6 +114,11 @@
 
 #pragma mark Actions
 
+- (BOOL)connect:(NSUInteger)timeout {
+#warning to do
+	return [self connect];
+}
+
 - (BOOL)connect {
 	// Construct server address information.
 	struct addrinfo hints, *serverinfo, *p;
