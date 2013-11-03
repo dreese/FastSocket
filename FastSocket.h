@@ -75,8 +75,6 @@
  Retrieves the internal buffer and its size for use outside the class. This buffer is good
  to use for sending and receiving bytes because it is a multiple of the segment size and
  allocated so that it is aligned on a memory page boundary.
- 
- @return YES if the connection succeeded, NO otherwise.
  */
 - (void)buffer:(void **)buf size:(long *)size;
 

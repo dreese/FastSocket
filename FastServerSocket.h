@@ -52,7 +52,6 @@
 /**
  Returns an initialized FastSocketSocket object configured to connect to the given host name and port number.
  
- @param host The host name of the remote host.
  @param port The port number on which to connect.
  @return An initialized FastSocketSocket object configured to connect to the given host name and port number.
  */
