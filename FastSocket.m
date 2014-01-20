@@ -55,10 +55,10 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 
 @interface FastSocket () {
 @protected
-	void *buffer;
-	long size;
-	long timeout;
-	int segmentSize;
+	void *_buffer;
+	long _size;
+	long _timeout;
+	int _segmentSize;
 }
 @end
 
@@ -70,8 +70,8 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		_sockfd = 0;
 		_host = [remoteHost copy];
 		_port = [remotePort copy];
-		size = getpagesize() * 1448 / 4;
-		buffer = valloc(size);
+		_size = getpagesize() * 1448 / 4;
+		_buffer = valloc(_size);
 	}
 	return self;
 }
@@ -80,8 +80,8 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	if ((self = [super init])) {
 		// Assume the descriptor is an already connected socket.
 		_sockfd = fd;
-		size = getpagesize() * 1448 / 4;
-		buffer = valloc(size);
+		_size = getpagesize() * 1448 / 4;
+		_buffer = valloc(_size);
 		
 		// Instead of receiving a SIGPIPE signal, have write() return an error.
 		if (setsockopt(_sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
@@ -96,12 +96,12 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		}
 		
 		// Increase receive buffer size.
-		if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size)) < 0) {
+		if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &_size, sizeof(_size)) < 0) {
 			// Ignore this because some systems have small hard limits.
 		}
 		
 		// Set timeout or segment size if requested.
-		if (timeout && ![self setTimeout:timeout]) {
+		if (_timeout && ![self setTimeout:_timeout]) {
 			return NO;
 		}
 	}
@@ -110,14 +110,14 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 
 - (void)buffer:(void **)outBuf size:(long *)outSize {
 	if (outBuf && outSize) {
-		*outBuf = buffer;
-		*outSize = size;
+		*outBuf = _buffer;
+		*outSize = _size;
 	}
 }
 
 - (void)dealloc {
 	[self close];
-	free(buffer);
+	free(_buffer);
 }
 
 #pragma mark Actions
@@ -161,7 +161,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			}
 			
 			// Increase receive buffer size.
-			if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size)) < 0) {
+			if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &_size, sizeof(_size)) < 0) {
 				// Ignore this because some systems have small hard limits.
 			}
 			
@@ -181,10 +181,10 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			}
 			
 			// Set timeout or segment size if requested.
-			if (timeout && ![self setTimeout:timeout]) {
+			if (_timeout && ![self setTimeout:_timeout]) {
 				return NO;
 			}
-			if (segmentSize && ![self setSegmentSize:segmentSize]) {
+			if (_segmentSize && ![self setSegmentSize:_segmentSize]) {
 				return NO;
 			}
 			
@@ -267,7 +267,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		
 		long count;
 		while (1) {
-			count = read(fd, buffer, size);
+			count = read(fd, _buffer, _size);
 			if (count == 0) {
 				break; // Reached end of file.
 			}
@@ -275,7 +275,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
-			if ([self sendBytes:buffer count:count] < 0) {
+			if ([self sendBytes:_buffer count:count] < 0) {
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
@@ -313,7 +313,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		
 		long received;
 		while (remaining > 0) {
-			received = [self receiveBytes:buffer limit:MIN(length, size)];
+			received = [self receiveBytes:_buffer limit:MIN(length, _size)];
 			if (received == 0) {
 				break; // Peer closed the connection.
 			}
@@ -321,12 +321,12 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
-			if (write(fd, buffer, received) < 0) {
+			if (write(fd, _buffer, received) < 0) {
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				break;
 			}
 			if (outHash) {
-				CC_MD5_Update(&context, buffer, (CC_LONG)received);
+				CC_MD5_Update(&context, _buffer, (CC_LONG)received);
 			}
 			remaining -= received;
 		}
@@ -351,9 +351,9 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			_lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
-		timeout = tv.tv_sec;
+		_timeout = tv.tv_sec;
 	}
-	return timeout;
+	return _timeout;
 }
 
 - (BOOL)setTimeout:(long)seconds {
@@ -364,16 +364,16 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			return NO;
 		}
 	}
-	timeout = seconds;
+	_timeout = seconds;
 	return YES;
 }
 
 - (int)segmentSize {
-	if (_sockfd > 0 && getsockopt(_sockfd, IPPROTO_TCP, TCP_MAXSEG, &segmentSize, &(socklen_t){sizeof(segmentSize)}) < 0) {
+	if (_sockfd > 0 && getsockopt(_sockfd, IPPROTO_TCP, TCP_MAXSEG, &_segmentSize, &(socklen_t){sizeof(_segmentSize)}) < 0) {
 		_lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
-	return segmentSize;
+	return _segmentSize;
 }
 
 - (BOOL)setSegmentSize:(int)bytes {
@@ -381,7 +381,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		_lastError = NEW_ERROR(errno, strerror(errno));
 		return NO;
 	}
-	segmentSize = bytes;
+	_segmentSize = bytes;
 	return YES;
 }
 
