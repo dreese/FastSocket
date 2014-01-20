@@ -50,6 +50,9 @@
 #include <unistd.h>
 
 
+int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout);
+
+
 @interface FastSocket () {
 @protected
 	void *buffer;
@@ -119,12 +122,11 @@
 
 #pragma mark Actions
 
-- (BOOL)connect:(NSUInteger)timeout {
-#warning to do
-	return [self connect];
+- (BOOL)connect {
+	return [self connect:0];
 }
 
-- (BOOL)connect {
+- (BOOL)connect:(NSUInteger)nsec {
 	// Construct server address information.
 	struct addrinfo hints, *serverinfo, *p;
 	
@@ -163,10 +165,19 @@
 				// Ignore this because some systems have small hard limits.
 			}
 			
-			// Connect the socket (default connect timeout is 75 seconds).
-			if (connect(_sockfd, p->ai_addr, p->ai_addrlen) < 0) {
-				_lastError = NEW_ERROR(errno, strerror(errno));
-				continue;
+			if (nsec) {
+				// Connect the socket using the given timeout.
+				if (connect_timeout(_sockfd, p->ai_addr, p->ai_addrlen, nsec) < 0) {
+					_lastError = NEW_ERROR(errno, strerror(errno));
+					continue;
+				}
+			}
+			else {
+				// Connect the socket (default connect timeout is 75 seconds).
+				if (connect(_sockfd, p->ai_addr, p->ai_addrlen) < 0) {
+					_lastError = NEW_ERROR(errno, strerror(errno));
+					continue;
+				}
 			}
 			
 			// Set timeout or segment size if requested.
@@ -375,3 +386,66 @@
 }
 
 @end
+
+
+/**
+ This method is adapted from section 16.3 in Unix Network Programming (2003) by Richard Stevens et al.
+ See http://books.google.com/books?id=ptSC4LpwGA0C&lpg=PP1&pg=PA448
+ */
+int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout) {
+	fd_set rset, wset;
+	struct timeval tval;
+	int error = 0;
+	
+	// Get current flags to restore after.
+	int flags = fcntl(sockfd, F_GETFL, 0);
+	
+	// Set socket to non-blocking.
+	fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+	
+	// Connect should return immediately in the "in progress" state.
+	int result = 0;
+	if ((result = connect(sockfd, address, address_len)) < 0) {
+		if (errno != EINPROGRESS) {
+			return -1;
+		}
+	}
+	
+	// If connection completed immediately, skip waiting.
+	if (result == 0) {
+		goto done;
+	}
+	
+	// Call select() to wait for the connection.
+	// NOTE: If timeout is zero, then pass NULL in order to use default timeout. Zero seconds indicates no waiting.
+	FD_ZERO(&rset);
+	FD_SET(sockfd, &rset);
+	wset = rset;
+	tval.tv_sec = timeout;
+	tval.tv_usec = 0;
+	if ((result = select(sockfd + 1, &rset, &wset, NULL, timeout ? &tval : NULL)) == 0) {
+		close(sockfd);
+		errno = ETIMEDOUT;
+		return -1;
+	}
+	
+	// Check whether the connection succeeded. If the socket is readable or writable, check for an error.
+	if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
+		socklen_t len = sizeof(error);
+		if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0) {
+			return -1;
+		}
+	}
+	
+done:
+	// Restore original flags.
+	fcntl(sockfd, F_SETFL, flags);
+	
+	// NOTE: On some systems, getsockopt() will fail and set errno. On others, it will succeed and set the error parameter.
+	if (error) {
+		close(sockfd);
+		errno = error;
+		return -1;
+	}
+	return 0;
+}

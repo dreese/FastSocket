@@ -12,22 +12,26 @@
 		3754B204188C7E0F0052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F4188C7E0F0052728A /* Foundation.framework */; };
 		3754B209188C7E0F0052728A /* libFastSocket-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F1188C7E0F0052728A /* libFastSocket-iOS.a */; };
 		3754B21E188C7E650052728A /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B21D188C7E650052728A /* FastSocketTest.m */; };
-		3754B223188C7F120052728A /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B222188C7F120052728A /* FastSocket.m */; };
 		3754B23E188C81C30052728A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B202188C7E0F0052728A /* XCTest.framework */; };
 		3754B242188C81C30052728A /* libFastSocket-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B22C188C81C30052728A /* libFastSocket-OSX.a */; };
 		3754B252188C82860052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B230188C81C30052728A /* Foundation.framework */; };
 		3754B255188C82C30052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F4188C7E0F0052728A /* Foundation.framework */; };
+		3754B256188C8B340052728A /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B222188C7F120052728A /* FastSocket.m */; };
+		3754B257188C8B340052728A /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B222188C7F120052728A /* FastSocket.m */; };
+		3754B258188C8B380052728A /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B21B188C7E5A0052728A /* FastServerSocket.m */; };
+		3754B259188C8B390052728A /* FastServerSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B21B188C7E5A0052728A /* FastServerSocket.m */; };
+		3754B25A188C8B3B0052728A /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B21D188C7E650052728A /* FastSocketTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3754B207188C7E0F0052728A /* PBXContainerItemProxy */ = {
+		3754B25B188D047B0052728A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3754B1E9188C7E0F0052728A /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3754B1F0188C7E0F0052728A;
-			remoteInfo = FastSocket;
+			remoteInfo = "FastSocket iOS";
 		};
-		3754B240188C81C30052728A /* PBXContainerItemProxy */ = {
+		3754B25D188D04810052728A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3754B1E9188C7E0F0052728A /* Project object */;
 			proxyType = 1;
@@ -79,9 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3754B209188C7E0F0052728A /* libFastSocket-iOS.a in Frameworks */,
-				3754B203188C7E0F0052728A /* XCTest.framework in Frameworks */,
 				3754B204188C7E0F0052728A /* Foundation.framework in Frameworks */,
+				3754B203188C7E0F0052728A /* XCTest.framework in Frameworks */,
+				3754B209188C7E0F0052728A /* libFastSocket-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +221,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3754B208188C7E0F0052728A /* PBXTargetDependency */,
+				3754B25C188D047B0052728A /* PBXTargetDependency */,
 			);
 			name = "FastSocket iOS Tests";
 			productName = FastSocketTests;
@@ -252,7 +256,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3754B241188C81C30052728A /* PBXTargetDependency */,
+				3754B25E188D04810052728A /* PBXTargetDependency */,
 			);
 			name = "FastSocket OSX Tests";
 			productName = "FastSocket OSXTests";
@@ -310,6 +314,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3754B256188C8B340052728A /* FastSocket.m in Sources */,
+				3754B258188C8B380052728A /* FastServerSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3754B223188C7F120052728A /* FastSocket.m in Sources */,
 				3754B21E188C7E650052728A /* FastSocketTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +331,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3754B257188C8B340052728A /* FastSocket.m in Sources */,
+				3754B259188C8B390052728A /* FastServerSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,21 +340,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3754B25A188C8B3B0052728A /* FastSocketTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3754B208188C7E0F0052728A /* PBXTargetDependency */ = {
+		3754B25C188D047B0052728A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3754B1F0188C7E0F0052728A /* FastSocket iOS */;
-			targetProxy = 3754B207188C7E0F0052728A /* PBXContainerItemProxy */;
+			targetProxy = 3754B25B188D047B0052728A /* PBXContainerItemProxy */;
 		};
-		3754B241188C81C30052728A /* PBXTargetDependency */ = {
+		3754B25E188D04810052728A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3754B22B188C81C30052728A /* FastSocket OSX */;
-			targetProxy = 3754B240188C81C30052728A /* PBXContainerItemProxy */;
+			targetProxy = 3754B25D188D04810052728A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -356,7 +364,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -394,7 +401,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -453,7 +459,6 @@
 		3754B218188C7E0F0052728A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -468,7 +473,6 @@
 		3754B219188C7E0F0052728A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -517,13 +521,11 @@
 					"$(inherited)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FastSocket OSX/FastSocket OSX-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "FastSocket OSXTests/FastSocket OSXTests-Info.plist";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;
@@ -540,9 +542,7 @@
 					"$(inherited)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FastSocket OSX/FastSocket OSX-Prefix.pch";
-				INFOPLIST_FILE = "FastSocket OSXTests/FastSocket OSXTests-Info.plist";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;
@@ -586,6 +586,7 @@
 				3754B24D188C81C30052728A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3754B24E188C81C30052728A /* Build configuration list for PBXNativeTarget "FastSocket OSX Tests" */ = {
 			isa = XCConfigurationList;
@@ -594,6 +595,7 @@
 				3754B250188C81C30052728A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
