@@ -252,7 +252,7 @@
 	long len = 1024 * 10 * 200;
 	unsigned char sent[len];
 	for (int i = 0; i < len; ++i) {
-		sent[i] = (random() % 256);
+		sent[i] = (unsigned char)(random() % 256);
 	}
 	NSLog(@"sending %li bytes", len);
 	

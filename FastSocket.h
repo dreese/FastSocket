@@ -93,7 +93,7 @@
  @param timeout The maximum amount of time to wait for a connection to succeed.
  @return YES if the connection succeeded, NO otherwise.
  */
-- (BOOL)connect:(NSUInteger)timeout;
+- (BOOL)connect:(long)timeout;
 
 /**
  Returns whether the socket is currently connected.

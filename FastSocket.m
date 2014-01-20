@@ -126,7 +126,7 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	return [self connect:0];
 }
 
-- (BOOL)connect:(NSUInteger)nsec {
+- (BOOL)connect:(long)nsec {
 	// Construct server address information.
 	struct addrinfo hints, *serverinfo, *p;
 	
