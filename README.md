@@ -4,13 +4,13 @@ FastSocket
 Description
 ---------------
 
-A fast, synchronous Objective-C wrapper around BSD sockets for iOS and OS X. Allows
-you to send and receive raw bytes over a socket very quickly. Includes methods for
-transferring files while optionally computing a checksum for verification.
+A fast, synchronous Objective-C wrapper around BSD sockets for iOS and OS X.
+Send and receive raw bytes over a socket as fast as possible. Includes methods
+for transferring files while optionally computing a checksum for verification.
 
-This is the class to use if fast network communication is what you need. An
-asynchronous API might be better if you want to do something else while your network
-operations finish.
+Use this class if fast network communication is what you need. If you want to
+do something else while your network operations finish, then an asynchronous
+API might be better.
 
 For more information, please visit the [project homepage](http://github.com/dreese/fast-socket).
 

@@ -53,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		373F4A8E189EF6C400A326ED /* FastSocket.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = FastSocket.podspec; sourceTree = SOURCE_ROOT; };
 		3754B1F1188C7E0F0052728A /* libFastSocket-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFastSocket-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3754B1F4188C7E0F0052728A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3754B201188C7E0F0052728A /* FastSocket-iOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FastSocket-iOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +159,7 @@
 			children = (
 				3754B225188C7F3A0052728A /* LICENSE */,
 				3754B226188C7F3A0052728A /* README.md */,
+				373F4A8E189EF6C400A326ED /* FastSocket.podspec */,
 				3754B227188C7F3A0052728A /* UnitTests-Info.plist */,
 			);
 			name = Resources;
