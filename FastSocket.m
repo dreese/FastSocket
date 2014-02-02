@@ -50,7 +50,7 @@
 #include <unistd.h>
 
 
-int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout);
+int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout);
 
 
 @interface FastSocket () {
