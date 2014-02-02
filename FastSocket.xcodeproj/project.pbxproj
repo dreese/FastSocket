@@ -64,7 +64,7 @@
 		3754B221188C7F120052728A /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = SOURCE_ROOT; };
 		3754B222188C7F120052728A /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = SOURCE_ROOT; };
 		3754B225188C7F3A0052728A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		3754B226188C7F3A0052728A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		3754B226188C7F3A0052728A /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.markdown; sourceTree = SOURCE_ROOT; };
 		3754B227188C7F3A0052728A /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3754B22C188C81C30052728A /* libFastSocket-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFastSocket-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3754B230188C81C30052728A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -158,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				3754B225188C7F3A0052728A /* LICENSE */,
-				3754B226188C7F3A0052728A /* README.md */,
+				3754B226188C7F3A0052728A /* README.markdown */,
 				373F4A8E189EF6C400A326ED /* FastSocket.podspec */,
 				3754B227188C7F3A0052728A /* UnitTests-Info.plist */,
 			);
