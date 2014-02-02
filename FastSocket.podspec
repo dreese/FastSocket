@@ -11,11 +11,11 @@ Pod::Spec.new do |s|
 						do something else while your network operations finish, then an asynchronous
 						API might be better.
                        DESC
-  s.homepage         = "http://github.com/dreese/fast-socket"
+  s.homepage         = "https://github.com/dreese/FastSocket"
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { "Dan Reese" => "dan@danandcheryl.com" }
   s.social_media_url = "http://twitter.com/dreese"
-  s.source           = { :git => "https://github.com/dreese/fast-socket.git", :tag => "v1.1" }
+  s.source           = { :git => "https://github.com/dreese/FastSocket.git", :tag => "v1.1" }
   s.source_files     = 'FastSocket.{h,m}', 'FastServerSocket.{h,m}'
   s.requires_arc     = true
   s.framework        = 'Foundation'
