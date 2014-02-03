@@ -59,6 +59,11 @@ Please check out the unit tests for more examples of how to use these classes.
 Release Notes
 ---------------
 
+2014 Feb 3 — v1.2
+
+	• Added -[FastSocket connect:] method for specifying a connection timeout, which is separate from the read/write timeout.
+	• Added CocoaPod support with new podspec file.
+
 2013 Oct 3 — v1.1
 
 	• Converted to ARC.
