@@ -13,6 +13,7 @@ do something else while your network operations finish, then an asynchronous
 API might be better.
 
 For more information, please visit the [project homepage](http://github.com/dreese/fast-socket).
+FastSocket is also available as a [CocoaPod](http://cocoapods.org/?q=fastsocket).
 
 Download
 ---------------
