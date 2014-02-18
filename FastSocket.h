@@ -116,7 +116,7 @@
  @param count The number of bytes to send, typically the size of the buffer.
  @return The actual number of bytes sent.
  */
-- (long)sendBytes:(void *)buf count:(long)count;
+- (long)sendBytes:(const void *)buf count:(long)count;
 
 /**
  Receives an unpredictable number bytes up to the specified limit. Stores the bytes

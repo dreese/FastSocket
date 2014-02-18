@@ -224,7 +224,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	return YES;
 }
 
-- (long)sendBytes:(void *)buf count:(long)count {
+- (long)sendBytes:(const void *)buf count:(long)count {
 	long sent;
 	if ((sent = send(_sockfd, buf, count, 0)) < 0) {
 		_lastError = NEW_ERROR(errno, strerror(errno));
