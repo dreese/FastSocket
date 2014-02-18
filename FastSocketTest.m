@@ -271,6 +271,30 @@
 	[client close];
 }
 
+- (void)testSendingAndReceivingStrings {
+	// Spawn a thread to listen.
+	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	[client connect];
+	
+	// Send the string.
+	NSString *original = @"This is å striñg to tëst séndîng. 😎";
+	NSData *data = [original dataUsingEncoding:NSUTF8StringEncoding];
+	long len = [data length];
+	long count = [client sendBytes:[data bytes] count:len];
+	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
+	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Receive the string.
+	char bytes[len];
+	XCTAssertTrue([client receiveBytes:bytes count:len], @"receive error: %@", [client lastError]);
+	NSString *received = [[NSString alloc] initWithBytes:bytes length:len encoding:NSUTF8StringEncoding];
+	
+	// Compare results.
+	XCTAssertEqualObjects(received, original);
+	[client close];
+}
+
 #pragma mark Helpers
 
 - (void)simpleListen:(id)obj {

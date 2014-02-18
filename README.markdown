@@ -36,6 +36,17 @@ Receive a file of a given length.
 
 	long received = [client receiveFile:@"/tmp/newlyreceivedfile.txt" length:1024];
 
+Send a string.
+
+	NSData *data = [@"test" dataUsingEncoding:NSUTF8StringEncoding];
+	long count = [client sendBytes:[data bytes] count:[data length]];
+
+Receive a string.
+
+	char bytes[expectedLength];
+	[client receiveBytes:bytes count:expectedLength];
+	NSString *received = [[NSString alloc] initWithBytes:bytes length:expectedLength encoding:NSUTF8StringEncoding];
+
 Send raw bytes.
 
 	char data[] = {42};
