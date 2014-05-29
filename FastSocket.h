@@ -60,7 +60,7 @@
  @param port The port number on which to connect.
  @return An initialized FastSocket object configured to connect to the given host name and port number.
  */
-- (id)initWithHost:(NSString *)host andPort:(NSString *)port;
+- (id)initWithHost:(NSString *)host andPort:(NSString *)port __attribute__((nonnull));
 
 /**
  Returns an initialized FastSocket object configured to communicate throught the given file descriptor.
@@ -76,7 +76,7 @@
  to use for sending and receiving bytes because it is a multiple of the segment size and
  allocated so that it is aligned on a memory page boundary.
  */
-- (void)buffer:(void **)buf size:(long *)size;
+- (void)buffer:(void **)buf size:(long *)size __attribute__((nonnull));
 
 #pragma mark - Actions
 
@@ -116,7 +116,7 @@
  @param count The number of bytes to send, typically the size of the buffer.
  @return The actual number of bytes sent.
  */
-- (long)sendBytes:(const void *)buf count:(long)count;
+- (long)sendBytes:(const void *)buf count:(long)count __attribute__((nonnull));
 
 /**
  Receives an unpredictable number bytes up to the specified limit. Stores the bytes
@@ -126,7 +126,7 @@
  @param limit The maximum number of bytes to receive, typically the size of the buffer.
  @return The actual number of bytes received.
  */
-- (long)receiveBytes:(void *)buf limit:(long)limit;
+- (long)receiveBytes:(void *)buf limit:(long)limit __attribute__((nonnull));
 
 /**
  Receives the exact number of bytes specified unless a timeout or other error occurs.
@@ -137,7 +137,7 @@
  @param count The exact number of bytes to receive, typically the size of the buffer.
  @return YES if the correct number of bytes was received, NO otherwise.
  */
-- (BOOL)receiveBytes:(void *)buf count:(long)count;
+- (BOOL)receiveBytes:(void *)buf count:(long)count __attribute__((nonnull));
 
 /**
  Sends the contents of the file at the specified path. Uses an internal buffer to read
@@ -146,7 +146,7 @@
  @param path The path of the file to send.
  @return The actual number of bytes sent.
  */
-- (long)sendFile:(NSString *)path;
+- (long)sendFile:(NSString *)path __attribute__((nonnull));
 
 /**
  Receives a file with the given length and writes it to the specified path. Uses an
@@ -157,7 +157,7 @@
  @param length The length of the file, measured in bytes.
  @return The actual number of bytes received.
  */
-- (long)receiveFile:(NSString *)path length:(long)length;
+- (long)receiveFile:(NSString *)path length:(long)length __attribute__((nonnull));
 
 /**
  Receives a file with the given length and writes it to the specified path and calculates
@@ -169,7 +169,7 @@
  @param hash   An optional data object in which to store the calculated MD5 hash of the file.
  @return The actual number of bytes received.
  */
-- (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash;
+- (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash __attribute__((nonnull(1)));
 
 #pragma mark - Settings
 

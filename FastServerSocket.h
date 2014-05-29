@@ -55,7 +55,7 @@
  @param port The port number on which to connect.
  @return An initialized FastSocketSocket object configured to connect to the given host name and port number.
  */
-- (id)initWithPort:(NSString *)port;
+- (id)initWithPort:(NSString *)port __attribute__((nonnull));
 
 /**
  Returns an initialized FastSocketSocket object configured to communicate throught the given file descriptor.
