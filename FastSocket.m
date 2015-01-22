@@ -86,13 +86,13 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		// Instead of receiving a SIGPIPE signal, have write() return an error.
 		if (setsockopt(_sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
-			return NO;
+			return nil;
 		}
 		
 		// Disable Nagle's algorithm.
 		if (setsockopt(_sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
-			return NO;
+			return nil;
 		}
 		
 		// Increase receive buffer size.
@@ -102,7 +102,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		
 		// Set timeout or segment size if requested.
 		if (_timeout && ![self setTimeout:_timeout]) {
-			return NO;
+			return nil;
 		}
 	}
 	return self;
