@@ -276,8 +276,7 @@
 	NSString *original = @"This is å striñg to tëst séndîng. 😎";
 	NSData *data = [original dataUsingEncoding:NSUTF8StringEncoding];
 	long len = [data length];
-	long count = [client sendBytes:[data bytes] count:len];
-	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
+	XCTAssertEqual([client sendBytes:[data bytes] count:len], len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive the string.
@@ -287,7 +286,6 @@
 	
 	// Compare results.
 	XCTAssertEqualObjects(received, original);
-	[client close];
 }
 
 #pragma mark Helpers
@@ -328,7 +326,7 @@
 			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 		} while (count > 0);
 		
-		NSLog(@"stopped listening with error: %@", (count < 0 ? [incoming lastError] : @"none"));
+		XCTAssertEqual(count, 0, @"error: %@", [incoming lastError]);
 	}
 }
 
