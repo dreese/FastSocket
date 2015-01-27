@@ -288,6 +288,52 @@
 	XCTAssertEqualObjects(received, original);
 }
 
+- (void)testReceiveBytesWithDelay {
+	int count = 10;
+	
+	// Spawn server thread.
+	[NSThread detachNewThreadSelector:@selector(sendWithDelay:) toTarget:self withObject:@(count)];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Receive the array.
+	[client connect];
+	unsigned char received[count];
+	memset(received, 0, count);
+	XCTAssertEqual([client receiveBytes:received count:count], count, @"receive error: %@", [client lastError]);
+	XCTAssertEqual(received[count - 1], count - 1, @"incorrect result");
+}
+
+- (void)testReceiveBytesWithTimeout {
+	// Spawn server thread.
+	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Send byte array.
+	long len = 10;
+	unsigned char sent[len];
+	memset(sent, 1, len);
+	[client connect];
+	XCTAssertEqual([client sendBytes:sent count:len], len, @"send error: %@", [client lastError]);
+	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Receive byte array.
+	unsigned char received[len + 1];
+	[client setTimeout:3];
+	
+	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertEqual([client receiveBytes:received count:(len + 1)], len, @"receive error: %@", [client lastError]);
+	NSTimeInterval endTime = [NSDate timeIntervalSinceReferenceDate];
+	XCTAssertNotNil([client lastError]);
+	
+	// Check the duration of the timeout.
+	NSTimeInterval actualTime = endTime - startTime;
+	XCTAssertTrue(actualTime >= 2.9, @"timeout was %.2f", actualTime);
+	XCTAssertTrue(actualTime < 3.1, @"timeout was %.2f", actualTime);
+	
+	// Compare results.
+	XCTAssertEqual(memcmp(sent, received, len), 0);
+}
+
 #pragma mark Helpers
 
 - (void)simpleListen:(id)obj {
@@ -327,6 +373,31 @@
 		} while (count > 0);
 		
 		XCTAssertEqual(count, 0, @"error: %@", [incoming lastError]);
+	}
+}
+
+- (void)sendWithDelay:(NSNumber *)count {
+	@autoreleasepool {
+		NSLog(@"started listening");
+		[server listen];
+		
+		FastSocket *incoming = [server accept];
+		if (!incoming) {
+			NSLog(@"accept error: %@", [server lastError]);
+			return;
+		}
+		
+		// Send each byte 0.5 sec apart.
+		long send = 0;
+		unsigned char buf[1];
+		for (char i = 0; i < count.intValue; ++i) {
+			buf[0] = i;
+			send += [incoming sendBytes:buf count:1];
+			
+			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+		}
+		
+		XCTAssertEqual(send, 0, @"error: %@", [incoming lastError]);
 	}
 }
 
