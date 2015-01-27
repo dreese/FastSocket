@@ -56,7 +56,7 @@
 	XCTAssertFalse([client connect]);
 	XCTAssertNotNil([client lastError]);
 	
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -100,7 +100,7 @@
 }
 
 - (void)testIsConnected {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -120,7 +120,7 @@
 }
 
 - (void)testTimeoutBefore {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -132,7 +132,7 @@
 }
 
 - (void)testTimeoutAfter {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -144,7 +144,7 @@
 }
 
 - (void)testTimeoutMultipleBefore {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -157,7 +157,7 @@
 }
 
 - (void)testTimeoutMultipleAfter {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -170,7 +170,7 @@
 }
 
 - (void)testSegmentSizeBefore {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -182,7 +182,7 @@
 }
 
 - (void)testSegmentSizeAfter {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -194,7 +194,7 @@
 }
 
 - (void)testSegmentSizeMultipleBefore {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -207,7 +207,7 @@
 }
 
 - (void)testSegmentSizeMultipleAfter {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -221,11 +221,11 @@
 }
 
 - (void)testSendingAndReceivingBytes {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
-	// Send a byte array.
+	// Send byte array.
 	long len = 10;
 	unsigned char sent[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
 	[client connect];
@@ -233,7 +233,7 @@
 	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
-	// Receive a byte array.
+	// Receive byte array.
 	unsigned char received[len];
 	count = [client receiveBytes:received limit:len];
 	XCTAssertEqual(count, len, @"receive error: %@", [client lastError]);
@@ -244,7 +244,7 @@
 }
 
 - (void)testSendingAndReceivingRandomBytes {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
@@ -272,7 +272,7 @@
 }
 
 - (void)testSendingAndReceivingStrings {
-	// Spawn a thread to listen.
+	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(listenAndRepeat:) toTarget:self withObject:nil];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	[client connect];
