@@ -119,6 +119,22 @@
 	XCTAssertFalse([client isConnected]);
 }
 
+- (void)testIsConnectedAfterRemoteClose {
+	// Spawn server thread.
+	[NSThread detachNewThreadSelector:@selector(listentAndClose:) toTarget:self withObject:@2];
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	
+	// Check connected state before and after connecting, and after closing.
+	XCTAssertFalse([client isConnected]);
+	XCTAssertTrue([client connect]);
+	XCTAssertTrue([client isConnected]);
+	
+	// Wait for server to close.
+	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+	NSLog(@"checking connected status");
+	XCTAssertFalse([client isConnected]);
+}
+
 - (void)testTimeoutBefore {
 	// Spawn server thread.
 	[NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
@@ -339,6 +355,18 @@
 - (void)simpleListen:(id)obj {
 	@autoreleasepool {
 		[server listen]; // Incoming connections just queue up.
+	}
+}
+
+- (void)listentAndClose:(NSNumber *)delay {
+	@autoreleasepool {
+		NSLog(@"started listening");
+		[server listen];
+		
+		// Wait before closing.
+		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:delay.doubleValue]];
+		NSLog(@"closing connection");
+		[server close];
 	}
 }
 
