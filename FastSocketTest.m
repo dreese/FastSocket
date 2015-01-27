@@ -79,7 +79,7 @@
 	// Default timeout is 75 seconds on my machine.
 	NSTimeInterval actualTime = endTime - startTime;
 	XCTAssertTrue(actualTime >= 75.0, @"timeout was %.2f", actualTime);
-	XCTAssertTrue(actualTime < 76.0, @"timeout was %.2f", actualTime);
+	XCTAssertTrue(actualTime < 76.3, @"timeout was %.2f", actualTime);
 }
 
 - (void)testConnectWithCustomTimeout {
