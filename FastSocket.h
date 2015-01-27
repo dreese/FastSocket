@@ -130,14 +130,15 @@
 
 /**
  Receives the exact number of bytes specified unless a timeout or other error occurs.
- Stores the bytes in the given buffer and returns whether the correct number of bytes
- was received.
+ Stores the bytes in the given buffer and returns the actual number received. To check
+ whether the correct number of bytes was received, compare the return value with the
+ count specified.
  
  @param buf   The buffer in which to store the bytes received.
  @param count The exact number of bytes to receive, typically the size of the buffer.
- @return YES if the correct number of bytes was received, NO otherwise.
+ @return The actual number of bytes received.
  */
-- (BOOL)receiveBytes:(void *)buf count:(long)count __attribute__((nonnull));
+- (long)receiveBytes:(void *)buf count:(long)count __attribute__((nonnull));
 
 /**
  Sends the contents of the file at the specified path. Uses an internal buffer to read

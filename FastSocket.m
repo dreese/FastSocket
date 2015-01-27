@@ -240,16 +240,17 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	return received;
 }
 
-- (BOOL)receiveBytes:(void *)buf count:(long)count {
-	while (count > 0) {
-		long received = [self receiveBytes:buf limit:count];
+- (long)receiveBytes:(void *)buf count:(long)count {
+	long expected = count;
+	while (expected > 0) {
+		long received = [self receiveBytes:buf limit:expected];
 		if (received < 1) {
 			break;
 		}
-		count -= received;
+		expected -= received;
 		buf += received;
 	}
-	return (count == 0);
+	return (count - expected);
 }
 
 - (long)sendFile:(NSString *)path {

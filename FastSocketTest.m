@@ -229,18 +229,15 @@
 	long len = 10;
 	unsigned char sent[] = {1, -2, 3, -4, 5, -6, 7, -8, 9, 0};
 	[client connect];
-	long count = [client sendBytes:sent count:len];
-	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
+	XCTAssertEqual([client sendBytes:sent count:len], len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive byte array.
 	unsigned char received[len];
-	count = [client receiveBytes:received limit:len];
-	XCTAssertEqual(count, len, @"receive error: %@", [client lastError]);
+	XCTAssertEqual([client receiveBytes:received count:len], len, @"receive error: %@", [client lastError]);
 	
 	// Compare results.
 	XCTAssertEqual(memcmp(sent, received, len), 0);
-	[client close];
 }
 
 - (void)testSendingAndReceivingRandomBytes {
@@ -258,17 +255,15 @@
 	
 	// Send the array.
 	[client connect];
-	long count = [client sendBytes:sent count:len];
-	XCTAssertEqual(count, len, @"send error: %@", [client lastError]);
+	XCTAssertEqual([client sendBytes:sent count:len], len, @"send error: %@", [client lastError]);
 	[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 	
 	// Receive the array.
 	unsigned char received[len];
-	XCTAssertTrue([client receiveBytes:received count:len], @"receive error: %@", [client lastError]);
+	XCTAssertEqual([client receiveBytes:received count:len], len, @"receive error: %@", [client lastError]);
 	
 	// Compare results.
 	XCTAssertEqual(memcmp(sent, received, len), 0);
-	[client close];
 }
 
 - (void)testSendingAndReceivingStrings {
@@ -287,7 +282,7 @@
 	
 	// Receive the string.
 	char bytes[len];
-	XCTAssertTrue([client receiveBytes:bytes count:len], @"receive error: %@", [client lastError]);
+	XCTAssertEqual([client receiveBytes:bytes count:len], len, @"receive error: %@", [client lastError]);
 	NSString *received = [[NSString alloc] initWithBytes:bytes length:len encoding:NSUTF8StringEncoding];
 	
 	// Compare results.
