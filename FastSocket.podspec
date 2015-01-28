@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "FastSocket"
-  s.version          = "1.2"
+  s.version          = "1.3"
   s.summary          = "A fast, synchronous Objective-C wrapper around BSD sockets for iOS and OS X."
   s.description      = <<-DESC
 						A fast, synchronous Objective-C wrapper around BSD sockets for iOS and OS X.
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { "Dan Reese" => "dan@danandcheryl.com" }
   s.social_media_url = "http://twitter.com/dreese"
-  s.source           = { :git => "https://github.com/dreese/FastSocket.git", :tag => "v1.2" }
+  s.source           = { :git => "https://github.com/dreese/FastSocket.git", :tag => "v1.3" }
   s.source_files     = 'FastSocket.{h,m}', 'FastServerSocket.{h,m}'
   s.requires_arc     = true
   s.framework        = 'Foundation'
