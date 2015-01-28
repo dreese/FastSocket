@@ -71,6 +71,12 @@ Please check out the unit tests for more examples of how to use these classes.
 Release Notes
 ---------------
 
+2015 Jan 27 — v1.3
+
+	• Changed -[FaskSocket sendBytes:count:] method to return the actual number of bytes received instead of a BOOL. Now it matches the Readme.
+	• Fixed a compiler warning caused by returning NO instead of nil from one of the init methods.
+	• Added several unit tests.
+
 2014 Feb 3 — v1.2
 
 	• Added -[FastSocket connect:] method for specifying a connection timeout, which is separate from the read/write timeout.
