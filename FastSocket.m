@@ -50,7 +50,7 @@
 #include <unistd.h>
 
 
-int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout);
+int connect_timeout(int *sockfd, const struct sockaddr *address, socklen_t address_len, long timeout);
 
 
 @interface FastSocket () {
@@ -82,24 +82,24 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		_sockfd = fd;
 		_size = getpagesize() * 1448 / 4;
 		_buffer = valloc(_size);
-		
+
 		// Instead of receiving a SIGPIPE signal, have write() return an error.
 		if (setsockopt(_sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
 			return nil;
 		}
-		
+
 		// Disable Nagle's algorithm.
 		if (setsockopt(_sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
 			return nil;
 		}
-		
+
 		// Increase receive buffer size.
 		if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &_size, sizeof(_size)) < 0) {
 			// Ignore this because some systems have small hard limits.
 		}
-		
+
 		// Set timeout or segment size if requested.
 		if (_timeout && ![self setTimeout:_timeout]) {
 			return nil;
@@ -129,17 +129,17 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 - (BOOL)connect:(long)nsec {
 	// Construct server address information.
 	struct addrinfo hints, *serverinfo, *p;
-	
+
 	bzero(&hints, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
-	
+
 	int error = getaddrinfo([_host UTF8String], [_port UTF8String], &hints, &serverinfo);
 	if (error) {
 		_lastError = NEW_ERROR(error, gai_strerror(error));
 		return NO;
 	}
-	
+
 	// Loop through the results and connect to the first we can.
 	@try {
 		for (p = serverinfo; p != NULL; p = p->ai_next) {
@@ -147,27 +147,27 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
-			
+
 			// Instead of receiving a SIGPIPE signal, have write() return an error.
 			if (setsockopt(_sockfd, SOL_SOCKET, SO_NOSIGPIPE, &(int){1}, sizeof(int)) < 0) {
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
-			
+
 			// Disable Nagle's algorithm.
 			if (setsockopt(_sockfd, IPPROTO_TCP, TCP_NODELAY, &(int){1}, sizeof(int)) < 0) {
 				_lastError = NEW_ERROR(errno, strerror(errno));
 				return NO;
 			}
-			
+
 			// Increase receive buffer size.
 			if (setsockopt(_sockfd, SOL_SOCKET, SO_RCVBUF, &_size, sizeof(_size)) < 0) {
 				// Ignore this because some systems have small hard limits.
 			}
-			
+
 			if (nsec) {
 				// Connect the socket using the given timeout.
-				if (connect_timeout(_sockfd, p->ai_addr, p->ai_addrlen, nsec) < 0) {
+				if (connect_timeout(&_sockfd, p->ai_addr, p->ai_addrlen, nsec) < 0) {
 					_lastError = NEW_ERROR(errno, strerror(errno));
 					continue;
 				}
@@ -179,7 +179,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 					continue;
 				}
 			}
-			
+
 			// Set timeout or segment size if requested.
 			if (_timeout && ![self setTimeout:_timeout]) {
 				return NO;
@@ -187,7 +187,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			if (_segmentSize && ![self setSegmentSize:_segmentSize]) {
 				return NO;
 			}
-			
+
 			// Found a working address, so move on.
 			break;
 		}
@@ -206,7 +206,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	if (_sockfd == 0) {
 		return NO;
 	}
-	
+
 	struct sockaddr remoteAddr;
 	if (getpeername(_sockfd, &remoteAddr, &(socklen_t){sizeof(remoteAddr)}) < 0) {
 		_lastError = NEW_ERROR(errno, strerror(errno));
@@ -265,7 +265,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		if (fcntl(fd, F_NOCACHE, 1) < 0) {
 			// Ignore because this will still work with disk caching on.
 		}
-		
+
 		long count;
 		while (1) {
 			count = read(fd, _buffer, _size);
@@ -305,13 +305,13 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		if (fcntl(fd, F_NOCACHE, 1) < 0) {
 			// Ignore because this will still work with disk caching on.
 		}
-		
+
 		uint8_t digest[CC_MD5_DIGEST_LENGTH];
 		CC_MD5_CTX context;
 		if (outHash) {
 			CC_MD5_Init(&context);
 		}
-		
+
 		long received;
 		while (remaining > 0) {
 			received = [self receiveBytes:_buffer limit:MIN(length, _size)];
@@ -331,7 +331,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			}
 			remaining -= received;
 		}
-		
+
 		if (outHash) {
 			CC_MD5_Final(digest, &context);
 			*outHash = [NSData dataWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
@@ -393,58 +393,60 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
  This method is adapted from section 16.3 in Unix Network Programming (2003) by Richard Stevens et al.
  See http://books.google.com/books?id=ptSC4LpwGA0C&lpg=PP1&pg=PA448
  */
-int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t address_len, long timeout) {
+int	connect_timeout(int *sockfd, const struct sockaddr *address, socklen_t address_len, long timeout) {
 	fd_set rset, wset;
 	struct timeval tval;
 	int error = 0;
-	
+
 	// Get current flags to restore after.
-	int flags = fcntl(sockfd, F_GETFL, 0);
-	
+	int flags = fcntl(*sockfd, F_GETFL, 0);
+
 	// Set socket to non-blocking.
-	fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
-	
+	fcntl(*sockfd, F_SETFL, flags | O_NONBLOCK);
+
 	// Connect should return immediately in the "in progress" state.
 	int result = 0;
-	if ((result = connect(sockfd, address, address_len)) < 0) {
+	if ((result = connect(*sockfd, address, address_len)) < 0) {
 		if (errno != EINPROGRESS) {
 			return -1;
 		}
 	}
-	
+
 	// If connection completed immediately, skip waiting.
 	if (result == 0) {
 		goto done;
 	}
-	
+
 	// Call select() to wait for the connection.
 	// NOTE: If timeout is zero, then pass NULL in order to use default timeout. Zero seconds indicates no waiting.
 	FD_ZERO(&rset);
-	FD_SET(sockfd, &rset);
+	FD_SET(*sockfd, &rset);
 	wset = rset;
 	tval.tv_sec = timeout;
 	tval.tv_usec = 0;
-	if ((result = select(sockfd + 1, &rset, &wset, NULL, timeout ? &tval : NULL)) == 0) {
-		close(sockfd);
+	if ((result = select(*sockfd + 1, &rset, &wset, NULL, timeout ? &tval : NULL)) == 0) {
+		close(*sockfd);
+		*sockfd = 0;
 		errno = ETIMEDOUT;
 		return -1;
 	}
-	
+
 	// Check whether the connection succeeded. If the socket is readable or writable, check for an error.
-	if (FD_ISSET(sockfd, &rset) || FD_ISSET(sockfd, &wset)) {
+	if (FD_ISSET(*sockfd, &rset) || FD_ISSET(*sockfd, &wset)) {
 		socklen_t len = sizeof(error);
-		if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0) {
+		if (getsockopt(*sockfd, SOL_SOCKET, SO_ERROR, &error, &len) < 0) {
 			return -1;
 		}
 	}
-	
-done:
+
+	done:
 	// Restore original flags.
-	fcntl(sockfd, F_SETFL, flags);
-	
+	fcntl(*sockfd, F_SETFL, flags);
+
 	// NOTE: On some systems, getsockopt() will fail and set errno. On others, it will succeed and set the error parameter.
 	if (error) {
-		close(sockfd);
+		close(*sockfd);
+		*sockfd = 0;
 		errno = error;
 		return -1;
 	}
