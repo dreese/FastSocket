@@ -180,7 +180,7 @@
  
  @return The current timeout value in seconds.
  */
-- (long)timeout;
+- (float)timeout;
 
 /**
  Sets the number of seconds to wait without any network activity before giving up and
@@ -189,7 +189,7 @@
  @param seconds The number of seconds to wait before timing out.
  @return YES if the timeout value was set successfully, NO otherwise.
  */
-- (BOOL)setTimeout:(long)seconds;
+- (BOOL)setTimeout:(float)seconds;
 
 /**
  Returns the maximum segment size. The segment size is the largest amount of

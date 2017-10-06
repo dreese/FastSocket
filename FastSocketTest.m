@@ -143,7 +143,7 @@
 	// Set value before connect.
 	XCTAssertTrue([client setTimeout:100]);
 	XCTAssertTrue([client connect]);
-	XCTAssertEqual([client timeout], 100L);
+	XCTAssertEqual([client timeout], 100);
 	XCTAssertTrue([client close]);
 }
 
@@ -155,7 +155,7 @@
 	// Set value after connect.
 	XCTAssertTrue([client connect]);
 	XCTAssertTrue([client setTimeout:100]);
-	XCTAssertEqual([client timeout], 100L);
+	XCTAssertEqual([client timeout], 100);
 	XCTAssertTrue([client close]);
 }
 
@@ -168,7 +168,7 @@
 	XCTAssertTrue([client setTimeout:100]);
 	XCTAssertTrue([client setTimeout:101]);
 	XCTAssertTrue([client connect]);
-	XCTAssertEqual([client timeout], 101L);
+	XCTAssertEqual([client timeout], 101);
 	XCTAssertTrue([client close]);
 }
 
@@ -181,8 +181,48 @@
 	XCTAssertTrue([client connect]);
 	XCTAssertTrue([client setTimeout:100]);
 	XCTAssertTrue([client setTimeout:101]);
-	XCTAssertEqual([client timeout], 101L);
+	XCTAssertEqual([client timeout], 101);
 	XCTAssertTrue([client close]);
+}
+
+- (void)testTimeoutSubsecondBefore {
+    // Spawn server thread.
+    [NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
+    [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
+    // Set value before connect.
+    float timeout = arc4random_uniform(1000) / 1000.0f;
+    XCTAssertTrue([client setTimeout:timeout]);
+    XCTAssertTrue([client connect]);
+    XCTAssertEqual([client timeout], timeout);
+    XCTAssertTrue([client close]);
+}
+
+- (void)testTimeoutSubsecondAfter {
+    // Spawn server thread.
+    [NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
+    [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
+    // Set value after connect.
+    float timeout = arc4random_uniform(1000) / 1000.0f;
+    XCTAssertTrue([client connect]);
+    XCTAssertTrue([client setTimeout:timeout]);
+    XCTAssertEqual([client timeout], timeout);
+    XCTAssertTrue([client close]);
+}
+
+- (void)testClearTimeout {
+    // Spawn server thread.
+    [NSThread detachNewThreadSelector:@selector(simpleListen:) toTarget:self withObject:nil];
+    [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
+    // Set value before connect.
+    XCTAssertTrue([client connect]);
+    XCTAssertEqual([client timeout], 0.0f);
+    XCTAssertTrue([client setTimeout:100]);
+    XCTAssertTrue([client setTimeout:0]);
+    XCTAssertEqual([client timeout], 0.0f);
+    XCTAssertTrue([client close]);
 }
 
 - (void)testSegmentSizeBefore {

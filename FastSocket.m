@@ -57,7 +57,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 @protected
 	void *_buffer;
 	long _size;
-	long _timeout;
+	float _timeout;
 	int _segmentSize;
 }
 @end
@@ -101,7 +101,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 		}
 		
 		// Set timeout or segment size if requested.
-		if (_timeout && ![self setTimeout:_timeout]) {
+		if (_timeout != 0.0f && ![self setTimeout:_timeout]) {
 			return nil;
 		}
 	}
@@ -181,7 +181,7 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 			}
 			
 			// Set timeout or segment size if requested.
-			if (_timeout && ![self setTimeout:_timeout]) {
+			if (_timeout != 0.0f && ![self setTimeout:_timeout]) {
 				return NO;
 			}
 			if (_segmentSize && ![self setSegmentSize:_segmentSize]) {
@@ -345,21 +345,26 @@ int connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 
 #pragma mark Settings
 
-- (long)timeout {
+- (float)timeout {
 	if (_sockfd > 0) {
 		struct timeval tv;
 		if (getsockopt(_sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, &(socklen_t){sizeof(tv)}) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
 		}
-		_timeout = tv.tv_sec;
+		_timeout = ((tv.tv_sec * 1000000L) + tv.tv_usec) / 1000000.0f;
 	}
 	return _timeout;
 }
 
-- (BOOL)setTimeout:(long)seconds {
+- (BOOL)setTimeout:(float)seconds {
+	NSAssert(seconds >= 0.0, @"Timeout value must be positive");
 	if (_sockfd > 0) {
-		struct timeval tv = {seconds, 0};
+		struct timeval tv = {0, 0};
+		if (seconds != 0.0f) {
+			tv.tv_sec = (long)floorf(seconds);
+			tv.tv_usec = (int)(fmodf(seconds, 1.0f) * 1000000L);
+		}
 		if (setsockopt(_sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0 || setsockopt(_sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
 			_lastError = NEW_ERROR(errno, strerror(errno));
 			return NO;
