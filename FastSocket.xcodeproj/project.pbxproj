@@ -151,7 +151,7 @@
 				3754B21B188C7E5A0052728A /* FastServerSocket.m */,
 				3754B21D188C7E650052728A /* FastSocketTest.m */,
 			);
-			path = FastSocket;
+			name = FastSocket;
 			sourceTree = "<group>";
 		};
 		3754B224188C7F1F0052728A /* Resources */ = {
@@ -163,7 +163,6 @@
 				3754B227188C7F3A0052728A /* UnitTests-Info.plist */,
 			);
 			name = Resources;
-			path = FastSocket;
 			sourceTree = "<group>";
 		};
 		3754B22F188C81C30052728A /* OSX */ = {
