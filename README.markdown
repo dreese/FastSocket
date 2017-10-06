@@ -70,6 +70,11 @@ Please check out the unit tests for more examples of how to use these classes.
 
 Release Notes
 ---------------
+2017 Oct 06 — v1.4
+
+	• Changed -[FaskSocket sendBytes:count:] method to return the actual number of bytes received instead of a BOOL. Now it matches the Readme.
+	• Fixed a compiler warning caused by returning NO instead of nil from one of the init methods.
+	• Added several unit tests.
 
 2015 Jan 27 — v1.3
 
