@@ -72,7 +72,7 @@ Release Notes
 ---------------
 2017 Oct 06 — v1.4
 
-	• Changed `-[FaskSocket timeout]` and `-[FaskSocket setTimeout:]` methods so that the timeout value is a float, in order to handle sub-second values.
+	• Changed -[FaskSocket timeout] and -[FaskSocket setTimeout:] methods so that the timeout value is a float, in order to handle sub-second values.
 	• Fixed a compatibility issue with Xcode 9.
 	• Added several unit tests.
 
