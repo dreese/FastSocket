@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3754B1F5188C7E0F0052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F4188C7E0F0052728A /* Foundation.framework */; };
-		3754B203188C7E0F0052728A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B202188C7E0F0052728A /* XCTest.framework */; };
 		3754B204188C7E0F0052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F4188C7E0F0052728A /* Foundation.framework */; };
 		3754B209188C7E0F0052728A /* libFastSocket-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F1188C7E0F0052728A /* libFastSocket-iOS.a */; };
 		3754B21E188C7E650052728A /* FastSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754B21D188C7E650052728A /* FastSocketTest.m */; };
-		3754B23E188C81C30052728A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B202188C7E0F0052728A /* XCTest.framework */; };
 		3754B242188C81C30052728A /* libFastSocket-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B22C188C81C30052728A /* libFastSocket-OSX.a */; };
 		3754B252188C82860052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B230188C81C30052728A /* Foundation.framework */; };
 		3754B255188C82C30052728A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3754B1F4188C7E0F0052728A /* Foundation.framework */; };
@@ -57,7 +55,6 @@
 		3754B1F1188C7E0F0052728A /* libFastSocket-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFastSocket-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3754B1F4188C7E0F0052728A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3754B201188C7E0F0052728A /* FastSocket-iOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FastSocket-iOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3754B202188C7E0F0052728A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3754B21A188C7E5A0052728A /* FastServerSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastServerSocket.h; sourceTree = SOURCE_ROOT; };
 		3754B21B188C7E5A0052728A /* FastServerSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastServerSocket.m; sourceTree = SOURCE_ROOT; };
 		3754B21D188C7E650052728A /* FastSocketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocketTest.m; sourceTree = SOURCE_ROOT; };
@@ -85,7 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3754B204188C7E0F0052728A /* Foundation.framework in Frameworks */,
-				3754B203188C7E0F0052728A /* XCTest.framework in Frameworks */,
 				3754B209188C7E0F0052728A /* libFastSocket-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,7 +99,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3754B255188C82C30052728A /* Foundation.framework in Frameworks */,
-				3754B23E188C81C30052728A /* XCTest.framework in Frameworks */,
 				3754B242188C81C30052728A /* libFastSocket-OSX.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +132,6 @@
 			children = (
 				3754B251188C824D0052728A /* iOS */,
 				3754B22F188C81C30052728A /* OSX */,
-				3754B202188C7E0F0052728A /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
