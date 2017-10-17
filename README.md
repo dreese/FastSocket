@@ -101,7 +101,7 @@ Release Notes
 Creator
 ---------------
 
-[Daniel Reese](http://www.danandcheryl.com/)  
+[Daniel Reese](http://www.danielreese.com/)
 [@dreese](http://twitter.com/dreese)
 
 License
