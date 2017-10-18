@@ -66,6 +66,7 @@
 		3754B22C188C81C30052728A /* libFastSocket-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFastSocket-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3754B230188C81C30052728A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3754B23D188C81C30052728A /* FastSocket-OSX-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FastSocket-OSX-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37E6599E1F96CEF800C8E81B /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				3754B225188C7F3A0052728A /* LICENSE */,
+				37E6599E1F96CEF800C8E81B /* CONTRIBUTING.md */,
 				3754B226188C7F3A0052728A /* README.md */,
 				373F4A8E189EF6C400A326ED /* FastSocket.podspec */,
 				3754B227188C7F3A0052728A /* UnitTests-Info.plist */,
