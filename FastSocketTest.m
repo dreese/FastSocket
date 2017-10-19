@@ -390,6 +390,30 @@
 	XCTAssertEqual(memcmp(sent, received, len), 0);
 }
 
+- (void)testChecksum {
+    int count = 10;
+    
+    // Spawn server thread.
+    [NSThread detachNewThreadSelector:@selector(sendWithDelay:) toTarget:self withObject:@(count)];
+    [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
+    // Receive the array.
+    [client connect];
+    unsigned char received[count];
+    memset(received, 0, count);
+    
+    NSData *checksum = nil;
+    long bytesReceived = [client receiveFile:@"/tmp/test.txt" length:count md5:&checksum];
+    XCTAssertEqual(bytesReceived, count, @"receive error: %@", [client lastError]);
+    
+    NSMutableString *checksumString = [NSMutableString stringWithCapacity:checksum.length * 2];
+    const unsigned char *bytes = checksum.bytes;
+    for (NSUInteger i = 0; i < checksum.length; ++i) {
+        [checksumString appendFormat:@"%02x", (unsigned int)bytes[i]];
+    }
+    XCTAssertEqualObjects(checksumString, @"c56bd5480f6e5413cb62a0ad9666613a", @"incorrect checksum");
+}
+
 #pragma mark Helpers
 
 - (void)simpleListen:(id)obj {
