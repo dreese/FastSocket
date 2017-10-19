@@ -26,6 +26,7 @@
 
 #define NEW_ERROR(num, str) [[NSError alloc] initWithDomain:@"FastSocketErrorDomain" code:(num) userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%s", (str)] forKey:NSLocalizedDescriptionKey]]
 
+NS_ASSUME_NONNULL_BEGIN
 @interface FastSocket : NSObject
 
 #pragma mark - Properties
@@ -49,7 +50,7 @@
  The last error that occured. This value is not set to nil after a successful call, so it is not
  appropriate to test this value to check for error conditions. Check for a NO or nil return value.
  */
-@property (nonatomic, readonly) NSError *lastError;
+@property (nullable, nonatomic, readonly) NSError *lastError;
 
 #pragma mark - Initializers
 
@@ -60,23 +61,23 @@
  @param port The port number on which to connect.
  @return An initialized FastSocket object configured to connect to the given host name and port number.
  */
-- (id)initWithHost:(NSString *)host andPort:(NSString *)port __attribute__((nonnull));
+- (nullable instancetype)initWithHost:(NSString *)host andPort:(NSString *)port;
 
 /**
  Returns an initialized FastSocket object configured to communicate throught the given file descriptor.
- This method is primary used by a server socket to receive an incoming connection.
+ This method is used primarily by a server socket to receive an incoming connection.
  
  @param fd The file descriptor to use for communication.
  @return An initialized FastSocket object configured to communicate throught the given file descriptor.
  */
-- (id)initWithFileDescriptor:(int)fd;
+- (nullable instancetype)initWithFileDescriptor:(int)fd;
 
 /**
  Retrieves the internal buffer and its size for use outside the class. This buffer is good
  to use for sending and receiving bytes because it is a multiple of the segment size and
  allocated so that it is aligned on a memory page boundary.
  */
-- (void)buffer:(void **)buf size:(long *)size __attribute__((nonnull));
+- (void)buffer:(void * _Nonnull * _Nonnull)buf size:(long *)size;
 
 #pragma mark - Actions
 
@@ -116,7 +117,7 @@
  @param count The number of bytes to send, typically the size of the buffer.
  @return The actual number of bytes sent.
  */
-- (long)sendBytes:(const void *)buf count:(long)count __attribute__((nonnull));
+- (long)sendBytes:(const void *)buf count:(long)count;
 
 /**
  Receives an unpredictable number bytes up to the specified limit. Stores the bytes
@@ -126,7 +127,7 @@
  @param limit The maximum number of bytes to receive, typically the size of the buffer.
  @return The actual number of bytes received.
  */
-- (long)receiveBytes:(void *)buf limit:(long)limit __attribute__((nonnull));
+- (long)receiveBytes:(void *)buf limit:(long)limit;
 
 /**
  Receives the exact number of bytes specified unless a timeout or other error occurs.
@@ -138,7 +139,7 @@
  @param count The exact number of bytes to receive, typically the size of the buffer.
  @return The actual number of bytes received.
  */
-- (long)receiveBytes:(void *)buf count:(long)count __attribute__((nonnull));
+- (long)receiveBytes:(void *)buf count:(long)count;
 
 /**
  Sends the contents of the file at the specified path. Uses an internal buffer to read
@@ -147,7 +148,7 @@
  @param path The path of the file to send.
  @return The actual number of bytes sent.
  */
-- (long)sendFile:(NSString *)path __attribute__((nonnull));
+- (long)sendFile:(NSString *)path;
 
 /**
  Receives a file with the given length and writes it to the specified path. Uses an
@@ -158,7 +159,7 @@
  @param length The length of the file, measured in bytes.
  @return The actual number of bytes received.
  */
-- (long)receiveFile:(NSString *)path length:(long)length __attribute__((nonnull));
+- (long)receiveFile:(NSString *)path length:(long)length;
 
 /**
  Receives a file with the given length and writes it to the specified path and calculates
@@ -170,7 +171,7 @@
  @param hash   An optional data object in which to store the calculated MD5 hash of the file.
  @return The actual number of bytes received.
  */
-- (long)receiveFile:(NSString *)path length:(long)length md5:(NSData **)hash __attribute__((nonnull(1)));
+- (long)receiveFile:(NSString *)path length:(long)length md5:(NSData * _Nonnull * _Nullable)hash;
 
 #pragma mark - Settings
 
@@ -222,3 +223,4 @@
 - (BOOL)setSegmentSize:(int)bytes;
 
 @end
+NS_ASSUME_NONNULL_END
