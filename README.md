@@ -70,6 +70,12 @@ Please check out the unit tests for more examples of how to use these classes.
 
 Release Notes
 ---------------
+2017 Oct 28 — v1.5
+
+	• Annotated code to improve auto-generated Swift interface.
+	• Fixed several documentation issues.
+	• Added document for contributions.
+
 2017 Oct 06 — v1.4
 
 	• Changed -[FaskSocket timeout] and -[FaskSocket setTimeout:] methods so that the timeout value is a float, in order to handle sub-second values.
