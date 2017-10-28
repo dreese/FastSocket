@@ -12,13 +12,13 @@ Use this class if fast network communication is what you need. If you want to
 do something else while your network operations finish, then an asynchronous
 API might be better.
 
-For more information, please visit the [project homepage](http://github.com/dreese/fast-socket).
+For more information, please visit the [project homepage](http://github.com/dreese/FastSocket).
 FastSocket is also available as a [CocoaPod](http://cocoapods.org/?q=fastsocket).
 
 Download
 ---------------
 
-Download the [latest release](https://github.com/dreese/fast-socket/releases) of FastSocket or try the [nightly version](https://github.com/dreese/fast-socket/archive/master.zip).
+Download the [latest release](https://github.com/dreese/FastSocket/releases) of FastSocket or try the [nightly version](https://github.com/dreese/FastSocket/archive/master.zip).
 
 Examples
 ---------------
