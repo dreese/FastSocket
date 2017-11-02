@@ -65,6 +65,16 @@
 	//STAssertNil([client lastError], @"Last error should be nil"); // TODO: Not sure if this should be cleared out or just left alone.
 }
 
+- (void)testDoubleCloseAfterConnectionFailure {
+    XCTAssertFalse([client connect:0]);
+    XCTAssertTrue([client close]);
+    XCTAssertTrue([client close]);
+    
+    XCTAssertFalse([client connect:1]);
+    XCTAssertTrue([client close]);
+    XCTAssertTrue([client close]);
+}
+
 - (void)testConnectWithDefaultTimeout {
 	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
 	[client close];
