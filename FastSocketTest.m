@@ -76,9 +76,9 @@
 }
 
 - (void)testConnectWithDefaultTimeout {
-	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
+	// Connect to a non-routable IP address. See https://stackoverflow.com/a/40459270
 	[client close];
-	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
+	client = [[FastSocket alloc] initWithHost:@"example.com" andPort:@"81"];
 	
 	// Connection should timeout.
 	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
@@ -93,9 +93,9 @@
 }
 
 - (void)testConnectWithCustomTimeout {
-	// Connect to a non-routable IP address. See http://stackoverflow.com/a/904609/209371
+	// Connect to a non-routable IP address. See https://stackoverflow.com/a/40459270
 	[client close];
-	client = [[FastSocket alloc] initWithHost:@"10.255.255.1" andPort:@"81"];
+	client = [[FastSocket alloc] initWithHost:@"example.com" andPort:@"81"];
 	
 	// Connection should timeout.
 	NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
