@@ -70,6 +70,10 @@ Please check out the unit tests for more examples of how to use these classes.
 
 Release Notes
 ---------------
+2017 Nov 01 — v1.6
+
+	• Fixed a long-standing bug where the internal socket descriptor could become closed but not zeroed out.
+
 2017 Oct 28 — v1.5
 
 	• Annotated code to improve auto-generated Swift interface.
@@ -88,12 +92,12 @@ Release Notes
 	• Fixed a compiler warning caused by returning NO instead of nil from one of the init methods.
 	• Added several unit tests.
 
-2014 Feb 3 — v1.2
+2014 Feb 03 — v1.2
 
 	• Added -[FastSocket connect:] method for specifying a connection timeout, which is separate from the read/write timeout.
 	• Added CocoaPod support with new podspec file.
 
-2013 Oct 3 — v1.1
+2013 Oct 03 — v1.1
 
 	• Converted to ARC.
 	• Added -[FastSocket isConnected] method.
