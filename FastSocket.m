@@ -430,7 +430,6 @@ int	connect_timeout(int sockfd, const struct sockaddr *address, socklen_t addres
 	tval.tv_sec = timeout;
 	tval.tv_usec = 0;
 	if ((result = select(sockfd + 1, &rset, &wset, NULL, timeout ? &tval : NULL)) == 0) {
-		close(sockfd);
 		errno = ETIMEDOUT;
 		return -1;
 	}
@@ -449,7 +448,6 @@ done:
 	
 	// NOTE: On some systems, getsockopt() will fail and set errno. On others, it will succeed and set the error parameter.
 	if (error) {
-		close(sockfd);
 		errno = error;
 		return -1;
 	}
