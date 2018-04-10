@@ -4,9 +4,10 @@ FastSocket
 Description
 ---------------
 
-A fast, synchronous Objective-C wrapper around BSD sockets for iOS and OS X.
+A high-throughput, synchronous Objective-C wrapper around BSD sockets for iOS and macOS.
 Send and receive raw bytes over a socket as fast as possible. Includes methods
 for transferring files while optionally computing a checksum for verification.
+Swift compatible.
 
 Use this class if fast network communication is what you need. If you want to
 do something else while your network operations finish, then an asynchronous
